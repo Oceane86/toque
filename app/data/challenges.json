@@ -1,0 +1,77 @@
+{
+    "upcomingChallenges": [
+      {
+        "id": "5",
+        "title": "Défi Photographie",
+        "description": "Capturez le plus beau paysage de votre région et gagnez un prix.",
+        "image": "/images/photography-challenge.jpg",
+        "deadline": "2025-01-15T23:59:59Z",
+        "participants": []
+      },
+      {
+        "id": "6",
+        "title": "Défi Écriture",
+        "description": "Écrivez une nouvelle de 1000 mots pour participer au concours.",
+        "image": "/images/writing-challenge.jpg",
+        "deadline": "2025-02-01T23:59:59Z",
+        "participants": []
+      },
+      {
+        "id": "7",
+        "title": "Défi Randonnée",
+        "description": "Réalisez une randonnée de 20 km et partagez vos photos.",
+        "image": "/images/hiking-challenge.jpg",
+        "deadline": "2025-01-08T23:59:59Z",
+        "participants": []
+      }
+    ],
+    "ongoingChallenges": [
+      {
+        "id": "1",
+        "title": "Défi Jardinage",
+        "description": "Participez à notre défi de jardinage pour gagner des prix.",
+        "image": "/images/garden-challenge.jpg",
+        "deadline": "2024-12-30T23:59:59Z",
+        "participants": [
+          "user123",
+          "user456"
+        ]
+      },
+      {
+        "id": "2",
+        "title": "Défi Course",
+        "description": "Prenez part à notre défi de course pour améliorer votre forme.",
+        "image": "/images/race-challenge.jpg",
+        "deadline": "2024-12-25T23:59:59Z",
+        "participants": [
+          "user789",
+          "user101"
+        ]
+      }
+    ],
+    "pastChallenges": [
+      {
+        "id": "3",
+        "title": "Défi Lecture",
+        "description": "Lisez 5 livres en 1 mois et obtenez un badge spécial.",
+        "image": "/images/reading-challenge.jpg",
+        "deadline": "2024-11-30T23:59:59Z",
+        "participants": [
+          "user123",
+          "user789"
+        ]
+      },
+      {
+        "id": "4",
+        "title": "Défi Cuisine",
+        "description": "Cuisinez un plat spécial chaque semaine pendant 3 semaines.",
+        "image": "/images/cooking-challenge.jpg",
+        "deadline": "2024-11-10T23:59:59Z",
+        "participants": [
+          "user456",
+          "user101"
+        ]
+      }
+    ]
+  }
+  
