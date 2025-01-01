@@ -1,10 +1,11 @@
-// app/posts/[id].js
+// app/posts/[id]/page.js
 
-import { useRouter } from 'next/router';
+
+"use client";
+import { useParams } from 'next/navigation';
 
 const PostDetail = () => {
-  const router = useRouter();
-  const { id } = router.query;
+  const { id } = useParams();
 
   return (
     <div>
