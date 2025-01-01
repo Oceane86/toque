@@ -1,0 +1,18 @@
+/* // app/challenges/[id]/page.module.css */
+
+
+.title {
+    font-size: 2rem;
+    color: darkblue;
+  }
+  
+  .description {
+    font-size: 1rem;
+    color: gray;
+  }
+  
+  .link {
+    color: blue;
+    text-decoration: underline;
+  }
+  

@@ -1,4 +1,5 @@
 // app/api/register/route.js
+
 import { connectToDB } from "@/mongodb/database";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
@@ -11,7 +12,6 @@ cloudinary.v2.config({
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-
 export async function POST(req) {
     try {
         await connectToDB();
@@ -27,7 +27,7 @@ export async function POST(req) {
             description,
         } = Object.fromEntries(data.entries());
 
-        if (!username || !email || !password || !status) {
+        if (!username || !email || !password || !status || !confirmPassword) {
             return NextResponse.json(
                 { message: "Tous les champs requis doivent être remplis." },
                 { status: 400 }
@@ -41,10 +41,18 @@ export async function POST(req) {
             );
         }
 
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return NextResponse.json(
+                { message: "L'email est déjà utilisé." },
+                { status: 400 }
+            );
+        }
+
         const hashedPassword = await hash(password, 10);
         let profileImagePath = "assets/default-profile.png";
 
-        if (profileImage && typeof profileImage.arrayBuffer === "function") {
+        if (profileImage && profileImage.size > 0) {
             const buffer = Buffer.from(await profileImage.arrayBuffer());
             const stream = Readable.from(buffer);
             const uploadResult = await new Promise((resolve, reject) => {
@@ -57,6 +65,10 @@ export async function POST(req) {
                 );
                 stream.pipe(uploadStream);
             });
+
+            if (!uploadResult || !uploadResult.secure_url) {
+                throw new Error("Erreur lors du téléchargement de l'image");
+            }
             profileImagePath = uploadResult.secure_url;
         }
 
@@ -67,7 +79,6 @@ export async function POST(req) {
             profileImagePath,
             status,
             description: description || "",
-            challengeIds: [], // Initialiser avec une liste vide
         });
 
         await newUser.save();

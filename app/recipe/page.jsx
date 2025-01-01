@@ -1,4 +1,5 @@
 // app/recipe/page.jsx
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -28,6 +29,7 @@ export default function RecipePage() {
   const [imageUrls, setImageUrls] = useState([]); // Stocker les URL des images
   const [error, setError] = useState(""); // État pour gérer les erreurs
   const [loading, setLoading] = useState(false); // État pour gérer l'indicateur de chargement
+  const [imageLoading, setImageLoading] = useState(false); // Indicateur de chargement des images
 
   const handleGenerateText = async (uniquePrompt) => {
     setError(""); // Réinitialiser l'erreur
@@ -35,7 +37,7 @@ export default function RecipePage() {
     try {
       const prompt = uniquePrompt
         ? uniquePrompt
-        : "Génère une recette de cuisine traditionnelle ou variée avec des ingrédients détaillés et des instructions claires.";
+        : "Génère une recette de cuisine traditionnelle variée avec des ingrédients détaillés et des instructions claires.";
 
       const response = await fetch("/api/recipe", {
         method: "POST",
@@ -62,6 +64,7 @@ export default function RecipePage() {
   useEffect(() => {
     const generateRecipes = async () => {
       setLoading(true);
+      setImageLoading(true);
 
       // Prompts variés pour générer plusieurs recettes différentes
       const prompts = [
@@ -80,7 +83,8 @@ export default function RecipePage() {
 
       setGeneratedText(recipes); // Mettre à jour avec les recettes générées
       setImageUrls(images); // Mettre à jour avec les URL des images
-      setLoading(false);
+      setImageLoading(false); // Fin du chargement des images
+      setLoading(false); // Fin du chargement des recettes
     };
 
     generateRecipes(); // Appeler la fonction pour générer les recettes automatiquement
@@ -114,7 +118,6 @@ export default function RecipePage() {
       <h1>Générateur de recette avec Gemini</h1>
 
       {loading && <p>Génération des recettes...</p>}
-
       {generatedText.length > 0 && (
         <div>
           <h2>Recettes générées :</h2>
@@ -122,10 +125,12 @@ export default function RecipePage() {
             <div key={index}>
               <h3>Recette {index + 1} :</h3>
               <p>{recipe}</p>
-              {imageUrls[index] ? (
+              {imageLoading ? (
+                <p>Chargement de l'image...</p>
+              ) : imageUrls[index] ? (
                 <img src={imageUrls[index]} alt={`Image de ${recipe}`} style={{ width: "100%", maxWidth: "400px" }} />
               ) : (
-                <p>Aucune image disponible pour cette recette.</p>
+                <img src="/images/default-image.jpg" alt="Image générique" style={{ width: "100%", maxWidth: "400px" }} />
               )}
             </div>
           ))}

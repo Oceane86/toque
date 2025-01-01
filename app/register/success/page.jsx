@@ -12,7 +12,7 @@ const SuccessPage = () => {
                     <img src="/assets/icon-success.svg" alt="Icon success" />
                     <h1>Succès</h1>
                     <p>Votre compte a été créé avec succès !</p>
-                    <button onClick={() => router.push('/')}>Participer aux challenges</button>
+                    <button onClick={() => router.push('/')}>Voir les défis</button>
                 </div>
             </div>
         </>

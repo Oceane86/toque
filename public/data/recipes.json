@@ -1,0 +1,83 @@
+[
+    {
+      "title": "Mofongo",
+      "summary": "Plat traditionnel de Porto Rico à base de bananes plantains frites et écrasées, souvent servies avec de la viande ou des fruits de mer.",
+      "image": "https://www.example.com/mofongo.jpg",
+      "isVegan": false,
+      "isVegetarian": false,
+      "cuisines": ["Portoricaine"]
+    },
+    {
+      "title": "Khachapuri",
+      "summary": "Pain géorgien farci de fromage fondu, souvent accompagné d'œuf et de beurre, typique de la Géorgie.",
+      "image": "https://www.example.com/khachapuri.jpg",
+      "isVegan": false,
+      "isVegetarian": true,
+      "cuisines": ["Géorgienne"]
+    },
+    {
+      "title": "Shakshuka",
+      "summary": "Un plat d'Afrique du Nord avec des œufs pochés dans une sauce tomate épicée à base de poivrons et d'épices.",
+      "image": "https://www.example.com/shakshuka.jpg",
+      "isVegan": true,
+      "isVegetarian": true,
+      "cuisines": ["Tunisienne"]
+    },
+    {
+      "title": "Pabellón Criollo",
+      "summary": "Plat emblématique du Venezuela composé de riz, de haricots noirs, de viande hachée de bœuf, et de bananes frites.",
+      "image": "https://www.example.com/pabellon-criollo.jpg",
+      "isVegan": false,
+      "isVegetarian": false,
+      "cuisines": ["Vénézuélienne"]
+    },
+    {
+      "title": "Fufu",
+      "summary": "Plat traditionnel de l'Afrique de l'Ouest à base de pâte de manioc ou d'igname, souvent servi avec des soupes ou des sauces épicées.",
+      "image": "https://www.example.com/fufu.jpg",
+      "isVegan": true,
+      "isVegetarian": true,
+      "cuisines": ["Ghanéenne"]
+    },
+    {
+      "title": "Ceviche de Camarón",
+      "summary": "Recette typique de l'Équateur, composée de crevettes mariné dans du jus de citron vert, avec des oignons, de la coriandre, et des tomates.",
+      "image": "https://www.example.com/ceviche.jpg",
+      "isVegan": false,
+      "isVegetarian": false,
+      "cuisines": ["Équatorienne"]
+    },
+    {
+      "title": "Bacalhau à Brás",
+      "summary": "Un plat portugais à base de morue effilochée, de pommes de terre frites, d'œufs et d'olives.",
+      "image": "https://www.example.com/bacalhau.jpg",
+      "isVegan": false,
+      "isVegetarian": false,
+      "cuisines": ["Portugaise"]
+    },
+    {
+      "title": "Sauerbraten",
+      "summary": "Plat traditionnel d'Allemagne à base de viande marinée (souvent du bœuf) cuite lentement dans une sauce épicée, servi avec des pommes de terre ou des légumes.",
+      "image": "https://www.example.com/sauerbraten.jpg",
+      "isVegan": false,
+      "isVegetarian": false,
+      "cuisines": ["Allemande"]
+    },
+    {
+      "title": "Doro Wat",
+      "summary": "Un ragoût épicé traditionnel d'Éthiopie à base de poulet et d'œufs durs, cuit avec des épices, du beurre clarifié, et servi avec de l'injera.",
+      "image": "https://www.example.com/doro-wat.jpg",
+      "isVegan": false,
+      "isVegetarian": false,
+      "cuisines": ["Éthiopienne"]
+    },
+    {
+      "title": "Curry Laksa",
+      "summary": "Soupe de nouilles malaisienne à base de lait de coco, de curry, et de fruits de mer ou de poulet, souvent accompagnée de tofu et d'œufs durs.",
+      "image": "https://www.example.com/curry-laksa.jpg",
+      "isVegan": false,
+      "isVegetarian": false,
+      "cuisines": ["Malaisienne"]
+    }
+  ]
+  
