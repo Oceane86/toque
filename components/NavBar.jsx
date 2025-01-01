@@ -30,7 +30,7 @@ const Navbar = () => {
           <li><a href="/" className={styles.menuItem}>Accueil</a></li>
           <li><a href="/culinary" className={styles.menuItem}>Découvrez de nouvelles recettes</a></li>
           <li><a href="/challenges" className={styles.menuItem}>Challenges</a></li>
-          <li><a href="/login" className={styles.menuItem}>Login</a></li>
+          <li><a href="/login" className={styles.menuItem}>Se connecter</a></li>
           <li><a href="/register" className={styles.button}>S'inscrire</a></li>
         </ul>
       </div>
@@ -51,7 +51,7 @@ const Navbar = () => {
             <li><a href="/" className={styles.menuItem}>Accueil</a></li>
             <li><a href="/culinary" className={styles.menuItem}>Découvrez de nouvelles recettes</a></li>
             <li><a href="/challenges" className={styles.menuItem}>Challenges</a></li>
-            <li><a href="/login" className={styles.menuItem}>Login</a></li>
+            <li><a href="/login" className={styles.menuItem}>Se connecter</a></li>
             <li><a href="/register" className={styles.button}>S'inscrire</a></li>
             </ul>
         </div>
