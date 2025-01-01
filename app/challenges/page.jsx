@@ -4,8 +4,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";  // Importation du hook useRouter pour la navigation
-import { useSession } from "next-auth/react";  // Importation du hook useSession pour récupérer la session utilisateur
+import { useRouter } from "next/navigation";  
+import { useSession } from "next-auth/react"; 
+import Navbar from '@components/NavBar';
 
 // Fonction pour récupérer une image de recette depuis Pexels
 const fetchImageForRecipe = async (recipeName) => {
@@ -15,7 +16,7 @@ const fetchImageForRecipe = async (recipeName) => {
   try {
     const response = await fetch(url, {
       headers: {
-        Authorization: `Bearer ${apiKey}`,  // Ajouter l'en-tête d'autorisation avec la clé API
+        Authorization: `Bearer ${apiKey}`,  
       },
     });
 
@@ -33,14 +34,14 @@ const fetchImageForRecipe = async (recipeName) => {
 
 // Fonction pour extraire l'origine du pays
 const extractCountry = (recipeText) => {
-  const regex = /Origine\s*:\s*([A-Za-z\s]+)/;  // Recherche du format "Origine : [nom du pays]"
+  const regex = /Origine\s*:\s*([A-Za-z\s]+)/; 
   const match = recipeText.match(regex);
-  return match ? match[1] : "Non spécifiée";  // Retourne le pays ou "Non spécifiée"
+  return match ? match[1] : "Non spécifiée"; 
 };
 
 export default function ChallengesPage() {
   const { data: session, status } = useSession();  // Récupération de la session utilisateur
-  const router = useRouter();  // Hook pour la navigation
+  const router = useRouter(); 
   const [generatedRecipes, setGeneratedRecipes] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -61,9 +62,8 @@ export default function ChallengesPage() {
 
       const data = await response.json();
       if (response.ok) {
-        // Ajouter l'extraction du pays d'origine
-        const origin = extractCountry(data.challenge.description);  // Extraire le pays d'origine
-        return { ...data.challenge, origin };  // Ajouter l'origine à la recette
+        const origin = extractCountry(data.challenge.description);  
+        return { ...data.challenge, origin };  
       } else {
         setError(data.error || "Erreur lors de la génération du texte.");
         return null;
@@ -113,11 +113,12 @@ export default function ChallengesPage() {
   if (!session?.user) {
     // Si l'utilisateur n'est pas connecté, on le redirige vers la page de login
     router.push("/login");  // Redirige vers la page de connexion
-    return <div>Redirection vers la page de connexion...</div>;  // Affichage pendant la redirection
+    return <div>Redirection vers la page de connexion...</div>; 
   }
 
   return (
     <div>
+      <Navbar />
       <h1>Générateur de recettes avec Gemini</h1>
       {loading && <p>Génération des recettes...</p>}
       {generatedRecipes.length > 0 && (

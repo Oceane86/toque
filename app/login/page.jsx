@@ -4,6 +4,8 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Navbar from '@components/NavBar';
+
 
 const Login = () => {
     // Initialize the state variables
@@ -40,6 +42,7 @@ const Login = () => {
 
     return (
         <>
+        <Navbar />
             <div className="login-page">
                 <div className="login">
                     <div className="login_content">

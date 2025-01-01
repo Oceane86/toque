@@ -5,6 +5,8 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Navbar from '@components/NavBar';
+
 
 const RegisterPage = () => {
   const [step, setStep] = useState(1);
@@ -99,7 +101,11 @@ const RegisterPage = () => {
   };
 
   return (
+<div>
+<Navbar />
+
     <div className="login">
+
       <div className="login_content">
         <form className="login_content_form" onSubmit={handleSubmit}>
           {step === 1 && (
@@ -199,6 +205,8 @@ const RegisterPage = () => {
         </form>
       </div>
     </div>
+    </div>
+
   );
 };
 

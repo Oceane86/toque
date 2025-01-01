@@ -11,7 +11,7 @@ export default function Recipes() {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch('/api/culinary'); // Utilisation de l'API interne pour charger les recettes depuis le fichier JSON local
+        const response = await fetch('/api/culinary');
         const data = await response.json();
 
         if (response.ok) {

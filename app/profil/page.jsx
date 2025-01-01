@@ -4,6 +4,8 @@
 
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
+import Navbar from '@components/NavBar';
+
 
 export default function Profile() {
   const { data: session } = useSession();
@@ -27,6 +29,8 @@ export default function Profile() {
 
   return (
     <div>
+      <Navbar />
+
       <h1>Welcome, {session.user.name}</h1>
       <h2>Your Challenge History:</h2>
       <ul>

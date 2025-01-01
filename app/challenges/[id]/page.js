@@ -1,7 +1,9 @@
 // app/challenges/[id]/page.js
 
 import Link from 'next/link';
-import styles from './page.module.css'; // Assuming you have a CSS module
+import styles from './page.module.css'; 
+import Navbar from '@components/NavBar';
+
 
 export default function ChallengePage({ params }) {
   const { id } = params;
@@ -14,6 +16,7 @@ export default function ChallengePage({ params }) {
 
   return (
     <div>
+      <Navbar />
       <h1 className={styles.title}>{challenge.title}</h1>
       <p className={styles.description}>{challenge.description}</p>
       <Link href="/challenges" className={styles.link}>
