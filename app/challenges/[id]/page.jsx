@@ -1,13 +1,19 @@
 // app/challenges/[id]/page.jsx
+
+
 "use client";
 import Navbar from '@components/NavBar';
 import styles from './page.module.css'; 
 import { useEffect, useState } from "react";
+import Link from '@node_modules/next/link';
 
 const ChallengePage = ({ params }) => {
     const { id } = params;
     const [challenge, setChallenge] = useState(null);
     const [error, setError] = useState(null);
+    const [file, setFile] = useState(null); // Photo du plat
+    const [sharedPhotos, setSharedPhotos] = useState([]); // Photos partagées par les utilisateurs
+    const [message, setMessage] = useState(""); // Message d'erreur ou de succès
 
     useEffect(() => {
         const fetchChallenge = async () => {
@@ -17,9 +23,6 @@ const ChallengePage = ({ params }) => {
                     throw new Error("Challenge non trouvé.");
                 }
                 const data = await response.json();
-                if (!data) {
-                    throw new Error("Aucune donnée reçue.");
-                }
                 setChallenge(data);
             } catch (err) {
                 setError(err.message);
@@ -28,6 +31,38 @@ const ChallengePage = ({ params }) => {
 
         fetchChallenge();
     }, [id]);
+
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0]);
+    };
+
+    const handleSubmitPhoto = async () => {
+        if (!file) {
+            setMessage("Veuillez télécharger une photo.");
+            return;
+        }
+        const formData = new FormData();
+        formData.append("photo", file);
+        formData.append("challengeId", id);
+
+        try {
+            const response = await fetch(`/api/challenges/share-photo`, {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error("Erreur lors du partage de la photo.");
+            }
+
+            const data = await response.json();
+            setSharedPhotos([...sharedPhotos, data.photoUrl]); // Mettre à jour les photos partagées
+            setMessage("Photo partagée avec succès !");
+            setFile(null);
+        } catch (err) {
+            setMessage(err.message);
+        }
+    };
 
     if (error) {
         return <div className={styles.error}>Erreur: {error}</div>;
@@ -65,6 +100,16 @@ const ChallengePage = ({ params }) => {
                         ))}
                     </ol>
                 </div>
+
+                 {/* Lien vers la page d'upload */}
+                 <div className={styles.share}>
+                    <h3>Partagez votre plat avec une photo</h3>
+                    <Link href={`/challenges/${id}/partage`}>
+                        <button>Ajouter une photo</button>
+                    </Link>
+                </div>
+
+                
 
                 <div className={styles.footer}>
                     <p><strong>Créé par:</strong> {challenge.createdBy}</p>

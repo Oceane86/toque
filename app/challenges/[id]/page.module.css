@@ -106,3 +106,72 @@
   margin-bottom: 8px;
   line-height: 1.7;
 }
+
+
+
+/* Section de partage de photo */
+.share {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.share input {
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.share button {
+  padding: 10px 20px;
+  background-color: #2d3b55;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.share button:hover {
+  background-color: #1a2635;
+}
+
+.share p {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Section des photos partagées */
+.sharedPhotos {
+  margin-top: 40px;
+}
+
+.photosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.photoItem {
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.photoItem img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Réactions visuelles */
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.loading {
+  color: blue;
+}
