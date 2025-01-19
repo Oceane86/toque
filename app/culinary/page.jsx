@@ -1,4 +1,7 @@
 // app/culinary/page.jsx
+
+
+
 "use client";
 import { useEffect, useState } from 'react';
 import Navbar from '@components/NavBar';

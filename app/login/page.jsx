@@ -75,9 +75,6 @@ const Login = () => {
                                     <button className="rs" onClick={() => signIn('google')}>
                                         <img src="/assets/icon-google.svg" alt="Icon Google" />
                                     </button>
-                                    <button className="rs">
-                                        <img src="/assets/icon-facebook.svg" alt="Icon Facebook" />
-                                    </button>
                                 </div>
                             </div>
                             <a href="/register">Vous n'avez pas de compte ? S'incrire</a>
