@@ -1,8 +1,10 @@
 // app/api/challenges/share/route.js
 
+
 import multer from 'multer';
 import { NextResponse } from 'next/server';
 
+// Fonction pour obtenir l'extension du fichier
 function getFileExtension(filename) {
     return filename.substring(filename.lastIndexOf('.'));
 }
