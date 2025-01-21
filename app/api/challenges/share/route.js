@@ -1,5 +1,4 @@
 // app/api/challenges/share/route.js
-
 import { v2 as cloudinary } from 'cloudinary';
 import { NextResponse } from 'next/server';
 
@@ -10,13 +9,13 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const runtime = 'edge';
+// Désactiver l'Edge Runtime
+export const runtime = 'nodejs'; // Passer à node.js runtime
 
-// Gestion de l'upload des fichiers via POST
 export async function POST(req) {
     try {
-        const formData = await req.formData(); 
-        const file = formData.get('photo');
+        const formData = await req.formData(); // Récupérer le contenu de la requête sous forme de FormData
+        const file = formData.get('photo'); // Obtenir le fichier "photo" du FormData
 
         if (!file) {
             return NextResponse.json(
@@ -25,11 +24,11 @@ export async function POST(req) {
             );
         }
 
-        const buffer = await file.arrayBuffer(); 
-        const base64File = Buffer.from(buffer).toString('base64'); 
-        const dataUri = `data:${file.type};base64,${base64File}`; 
+        const buffer = await file.arrayBuffer();
+        const base64File = Buffer.from(buffer).toString('base64');
+        const dataUri = `data:${file.type};base64,${base64File}`;
 
-        // Uploader le fichier sur Cloudinary
+        // Uploader sur Cloudinary
         const result = await cloudinary.uploader.upload(dataUri, {
             folder: 'uploads',
         });
