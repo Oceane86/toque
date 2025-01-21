@@ -1,4 +1,5 @@
 // app/api/register/route.js
+
 import { connectToDB } from "@/mongodb/database";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
@@ -35,10 +36,19 @@ export async function POST(req) {
         }
 
         // Vérification si l'email existe déjà
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
+        const existingEmail = await User.findOne({ email });
+        if (existingEmail) {
             return NextResponse.json(
                 { message: "L'email est déjà utilisé." },
+                { status: 400 }
+            );
+        }
+
+        // Vérification si le nom d'utilisateur existe déjà
+        const existingUsername = await User.findOne({ username });
+        if (existingUsername) {
+            return NextResponse.json(
+                { message: "Le nom d'utilisateur est déjà pris." },
                 { status: 400 }
             );
         }

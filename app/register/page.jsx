@@ -16,6 +16,7 @@ const RegisterPage = () => {
     username: "",
     profileImage: null,
     description: "",
+    termsAccepted: false, // Par défaut, l'utilisateur n'a pas coché les termes
   });
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState("");
@@ -27,10 +28,10 @@ const RegisterPage = () => {
   const router = useRouter();
 
   const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
+    const { name, value, type, files, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "file" ? files[0] : value,
+      [name]: type === "file" ? files[0] : type === "checkbox" ? checked : value,
     }));
     setErrors((prev) => ({ ...prev, [name]: "" }));
     setServerError("");
@@ -64,6 +65,11 @@ const RegisterPage = () => {
       if (!formData.username) stepErrors.username = "Le nom d'utilisateur est obligatoire.";
     }
 
+    // Vérification de l'acceptation des termes à l'étape 3
+    if (step === 3 && !formData.termsAccepted) {
+      stepErrors.termsAccepted = "Vous devez accepter les termes et conditions.";
+    }
+
     // Ajouter un message d'erreur global si un champ est manquant
     if (Object.keys(stepErrors).length === 0 && step === 1 && !formData.email) {
       stepErrors.global = "Tous les champs doivent être remplis.";
@@ -89,6 +95,13 @@ const RegisterPage = () => {
     e.preventDefault();
     setServerError("");
     setIsLoading(true);
+
+    // Vérification de l'acceptation des termes avant l'envoi
+    if (!formData.termsAccepted) {
+      setServerError("Vous devez accepter les termes et conditions.");
+      setIsLoading(false);
+      return;
+    }
 
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
@@ -232,6 +245,20 @@ const RegisterPage = () => {
                     value={formData.description}
                     onChange={handleChange}
                   ></textarea>
+                </div>
+                <div>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="termsAccepted"
+                      checked={formData.termsAccepted}
+                      onChange={handleChange}
+                    />
+                    Accepter les termes et conditions
+                  </label>
+                  {errors.termsAccepted && (
+                    <p className={styles.error}>{errors.termsAccepted}</p>
+                  )}
                 </div>
                 <div className={styles.navButtons}>
                   <button type="button" className={styles.btn} onClick={handlePreviousStep}>
