@@ -1,5 +1,5 @@
 // app/api/check-email/route.js
-import { connectToDB } from "@/lib/mongodb";
+import { connectToDB } from "@/mongodb/database";
 
 const isValidDomain = (email) => {
   const regex = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

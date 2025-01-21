@@ -1,6 +1,6 @@
 // app/api/check-username.route.js
 
-import { connectToDB } from "@/lib/mongodb"; 
+import { connectToDB } from "@/mongodb/database";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
