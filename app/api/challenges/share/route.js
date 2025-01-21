@@ -1,17 +1,18 @@
 // app/api/challenges/share/route.js
 
-
-
 import multer from 'multer';
-import path from 'path';
 import { NextResponse } from 'next/server';
+
+function getFileExtension(filename) {
+    return filename.substring(filename.lastIndexOf('.'));
+}
 
 // Configuration de multer pour l'upload de fichiers localement
 const upload = multer({
     storage: multer.diskStorage({
         destination: './public/uploads/', 
         filename: (req, file, cb) => {
-            cb(null, Date.now() + path.extname(file.originalname)); 
+            cb(null, Date.now() + getFileExtension(file.originalname)); 
         },
     }),
 });
