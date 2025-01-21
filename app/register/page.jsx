@@ -1,5 +1,4 @@
 // app/register/page.jsx
-
 "use client";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
@@ -16,7 +15,7 @@ const RegisterPage = () => {
     username: "",
     profileImage: null,
     description: "",
-    termsAccepted: false, // Par défaut, l'utilisateur n'a pas coché les termes
+    termsAccepted: false, 
   });
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState("");
@@ -42,20 +41,24 @@ const RegisterPage = () => {
 
     if (step === 1) {
       if (!formData.email) stepErrors.email = "L'adresse e-mail est obligatoire.";
+      else {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!emailRegex.test(formData.email)) {
+          stepErrors.email = "L'adresse e-mail n'est pas valide.";
+        }
+      }
+
       if (!formData.password) stepErrors.password = "Le mot de passe est obligatoire.";
 
-      // Vérification de la longueur du mot de passe
       if (formData.password && formData.password.length < 12) {
         stepErrors.password = "Le mot de passe doit contenir au moins 12 caractères.";
       }
 
-      // Vérification des exigences du mot de passe (majuscule, chiffre, caractère spécial)
       const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
       if (formData.password && !passwordRegex.test(formData.password)) {
         stepErrors.password = "Le mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial.";
       }
 
-      // Vérification que les mots de passe correspondent
       if (formData.password && formData.password !== formData.confirmPassword) {
         stepErrors.confirmPassword = "Les mots de passe ne correspondent pas.";
       }
@@ -63,16 +66,15 @@ const RegisterPage = () => {
 
     if (step === 2) {
       if (!formData.username) stepErrors.username = "Le nom d'utilisateur est obligatoire.";
+      else {
+        if (formData.username.length < 3) {
+          stepErrors.username = "Le nom d'utilisateur doit contenir au moins 3 caractères.";
+        }
+      }
     }
 
-    // Vérification de l'acceptation des termes à l'étape 3
     if (step === 3 && !formData.termsAccepted) {
       stepErrors.termsAccepted = "Vous devez accepter les termes et conditions.";
-    }
-
-    // Ajouter un message d'erreur global si un champ est manquant
-    if (Object.keys(stepErrors).length === 0 && step === 1 && !formData.email) {
-      stepErrors.global = "Tous les champs doivent être remplis.";
     }
 
     return stepErrors;
@@ -96,7 +98,6 @@ const RegisterPage = () => {
     setServerError("");
     setIsLoading(true);
 
-    // Vérification de l'acceptation des termes avant l'envoi
     if (!formData.termsAccepted) {
       setServerError("Vous devez accepter les termes et conditions.");
       setIsLoading(false);
@@ -163,41 +164,47 @@ const RegisterPage = () => {
                 </div>
                 <div>
                   <label>Mot de passe</label>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    aria-required="true"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword((prev) => !prev)} 
-                  >
-                    {showPassword ? "Cacher" : "Voir"}
-                  </button>
+                  <div className={styles.inputContainer}>
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      aria-required="true"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((prev) => !prev)} 
+                      className={styles.showHideButton}
+                    >
+                      {showPassword ? "Cacher" : "Voir"}
+                    </button>
+                  </div>
                   {errors.password && <p className={styles.error}>{errors.password}</p>}
                 </div>
                 <div>
                   <label>Confirmation du mot de passe</label>
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    aria-required="true"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword((prev) => !prev)} 
-                  >
-                    {showConfirmPassword ? "Cacher" : "Voir"}
-                  </button>
+                  <div className={styles.inputContainer}>
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      aria-required="true"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword((prev) => !prev)} 
+                      className={styles.showHideButton}
+                    >
+                      {showConfirmPassword ? "Cacher" : "Voir"}
+                    </button>
+                  </div>
                   {errors.confirmPassword && (
                     <p className={styles.error}>{errors.confirmPassword}</p>
                   )}
                 </div>
-                {errors.global && <p className={styles.error}>{errors.global}</p>}
+                {serverError && <p className={styles.error}>{serverError}</p>}
                 <button type="button" className={styles.btn} onClick={handleNextStep}>
                   Suivant
                 </button>

@@ -85,6 +85,26 @@
   margin-top: 0.4rem; 
 }
 
+.inputContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.showHideButton {
+  position: absolute;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #FFA175;
+  font-size: 14px;
+}
+
+.showHideButton:hover {
+  text-decoration: underline;
+}
+
 @media (min-width: 768px) {
   .registerContent {
     max-width: 420px; 
