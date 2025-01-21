@@ -1,37 +1,29 @@
 // app/login/page.jsx
 
 "use client";
+
+import styles from './login.module.css';
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Navbar from '@components/NavBar';
 
-
 const Login = () => {
-    // Initialize the state variables
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-
-    // Get the router object
     const router = useRouter();
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
-            // Sign in with email and password
             const response = await signIn("credentials", {
                 redirect: false,
-                email: email,
-                password: password,
+                email,
+                password,
             });
-            console.log("Response from signIn:", response);
-
-            // If response is ok, redirect to home page
             if (response.ok) {
-                router.push("/")
+                router.push("/");
             } else {
                 setError("Email ou mot de passe invalide.");
             }
@@ -42,12 +34,12 @@ const Login = () => {
 
     return (
         <>
-        <Navbar />
-            <div className="login-page">
-                <div className="login">
-                    <div className="login_content">
-                        <h1 className="gradient-color">Connectez vous</h1>
-                        <form className="login_content_form" onSubmit={handleSubmit}>
+            <Navbar />
+            <div className={styles['login-page']}>
+                <div className={styles['login']}>
+                    <div className={styles['login_content']}>
+                        <h1 className={styles['gradient-color']}>Connectez-vous</h1>
+                        <form className={styles['login_content_form']} onSubmit={handleSubmit}>
                             <label>Adresse mail</label>
                             <input
                                 name="email"
@@ -56,7 +48,6 @@ const Login = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
-
                             <label>Mot de passe</label>
                             <input
                                 name="password"
@@ -65,19 +56,19 @@ const Login = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
-                            {error && <p className="error">{error}</p>}
+                            {error && <p className={styles.error}>{error}</p>}
                             <button type="submit">Se connecter</button>
                         </form>
-                        <div className="login_content_rs">
+                        <div className={styles['login_content_rs']}>
                             <div>
                                 <p>Ou continuez avec</p>
                                 <div className="d-flex column-gap-3">
-                                    <button className="rs" onClick={() => signIn('google')}>
+                                    <button className={styles.rs} onClick={() => signIn('google')}>
                                         <img src="/assets/icon-google.svg" alt="Icon Google" />
                                     </button>
                                 </div>
                             </div>
-                            <a href="/register">Vous n'avez pas de compte ? S'incrire</a>
+                            <a href="/register">Vous n'avez pas de compte ? S'inscrire</a>
                         </div>
                     </div>
                 </div>

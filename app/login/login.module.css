@@ -1,0 +1,109 @@
+/* app/login/login.module.css */
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fef4e8;
+}
+
+.login {
+    width: 90%;
+    max-width: 400px;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Header */
+.login_content h1 {
+    font-size: 2.5rem;
+    color: #333;
+    background-color: #fad3ba;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.login_content p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Formulaire */
+.login_content_form {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.login_content_form label {
+    font-size: 0.9rem;
+    color: #555;
+    text-align: left;
+}
+
+.login_content_form input {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+    font-size: 1rem;
+}
+
+.login_content_form button {
+    padding: 0.8rem;
+    background-color: #fad3ba;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login_content_form button:hover {
+    background-color: #fad3ba;
+}
+
+/* Réseaux sociaux */
+.login_content_rs {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.rs {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.rs:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login_content_rs a {
+    display: block;
+    margin-top: 1rem;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
+    .login {
+        max-width: 500px;
+    }
+
+    .login_content h1 {
+        font-size: 3rem;
+    }
+
+}
