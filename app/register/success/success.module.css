@@ -1,0 +1,60 @@
+/* app/register/success/success.module.css */
+
+
+/* App styles */
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f7fa;
+  }
+  
+  .login_content {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+  }
+  
+  .login_content img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+  }
+  
+  .login_content h1 {
+    font-size: 2rem;
+    color: #FFA175;
+    margin-bottom: 10px;
+  }
+  
+  .login_content p {
+    font-size: 1rem;
+    color: #333333;
+    margin-bottom: 20px;
+  }
+  
+  .login_content button {
+    padding: 12px 25px;
+    background-color: #FFA175;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .login_content button:hover {
+    background-color: #fad3ba;
+  }
+  
+  .login_content button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #FFA175;
+  }
+  

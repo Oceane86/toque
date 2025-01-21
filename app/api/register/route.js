@@ -1,5 +1,4 @@
 // app/api/register/route.js
-
 import { connectToDB } from "@/mongodb/database";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
@@ -12,6 +11,7 @@ cloudinary.v2.config({
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+
 export async function POST(req) {
     try {
         await connectToDB();
@@ -23,24 +23,18 @@ export async function POST(req) {
             password,
             confirmPassword,
             profileImage,
-            status,
             description,
         } = Object.fromEntries(data.entries());
 
-        if (!username || !email || !password || !status || !confirmPassword) {
+        // Validation des champs obligatoires
+        if (!username || !email || !password || !confirmPassword) {
             return NextResponse.json(
                 { message: "Tous les champs requis doivent être remplis." },
                 { status: 400 }
             );
         }
 
-        if (password !== confirmPassword) {
-            return NextResponse.json(
-                { message: "Les mots de passe ne correspondent pas." },
-                { status: 400 }
-            );
-        }
-
+        // Vérification si l'email existe déjà
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return NextResponse.json(
@@ -52,7 +46,23 @@ export async function POST(req) {
         const hashedPassword = await hash(password, 10);
         let profileImagePath = "assets/default-profile.png";
 
+        // Validation et téléchargement de l'image de profil
         if (profileImage && profileImage.size > 0) {
+            if (profileImage.size > 5 * 1024 * 1024) {
+                return NextResponse.json(
+                    { message: "L'image de profil ne doit pas dépasser 5 Mo." },
+                    { status: 400 }
+                );
+            }
+
+            const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+            if (!allowedTypes.includes(profileImage.type)) {
+                return NextResponse.json(
+                    { message: "Seuls les fichiers image (JPEG, PNG, GIF) sont autorisés." },
+                    { status: 400 }
+                );
+            }
+
             const buffer = Buffer.from(await profileImage.arrayBuffer());
             const stream = Readable.from(buffer);
             const uploadResult = await new Promise((resolve, reject) => {
@@ -72,13 +82,14 @@ export async function POST(req) {
             profileImagePath = uploadResult.secure_url;
         }
 
+        const cleanDescription = description ? description.replace(/<[^>]*>/g, '') : '';
+
         const newUser = new User({
             username,
             email,
             password: hashedPassword,
             profileImagePath,
-            status,
-            description: description || "",
+            description: cleanDescription,
         });
 
         await newUser.save();

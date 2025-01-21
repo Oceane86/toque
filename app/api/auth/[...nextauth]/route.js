@@ -1,4 +1,5 @@
 // app/api/auth/[...nextauth].js
+
 import { connectToDB } from "@/mongodb/database";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
@@ -43,8 +44,6 @@ const handler = NextAuth({
             const sessionUser = await User.findOne({ email: session.user.email });
             session.user.id = sessionUser._id.toString();
             session.user.profileImagePath = sessionUser.profileImagePath;
-            session.user.status = sessionUser.status; 
-
             return session;
         },
 
@@ -59,7 +58,7 @@ const handler = NextAuth({
                             username: profile.name,
                             profileImagePath: profile.picture,
                             isGoogleUser: true,
-                            status: "visiteur",
+                          
                         });
                     }
                     return true;
@@ -71,7 +70,6 @@ const handler = NextAuth({
             return true;
         },
 
-        // Ajout du callback redirect
         async redirect({ url, baseUrl }) {
             return baseUrl;
         },

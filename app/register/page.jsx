@@ -1,10 +1,11 @@
 // app/register/page.jsx
+
 "use client";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@components/NavBar";
-import styles from "./register.module.css"; 
+import styles from "./register.module.css";
 
 const RegisterPage = () => {
   const [step, setStep] = useState(1);
@@ -12,7 +13,6 @@ const RegisterPage = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    status: "",
     username: "",
     profileImage: null,
     description: "",
@@ -20,6 +20,9 @@ const RegisterPage = () => {
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const router = useRouter();
 
@@ -30,22 +33,42 @@ const RegisterPage = () => {
       [name]: type === "file" ? files[0] : value,
     }));
     setErrors((prev) => ({ ...prev, [name]: "" }));
-    setServerError(""); 
+    setServerError("");
   };
 
   const validateStep = () => {
     const stepErrors = {};
+
     if (step === 1) {
       if (!formData.email) stepErrors.email = "L'adresse e-mail est obligatoire.";
       if (!formData.password) stepErrors.password = "Le mot de passe est obligatoire.";
-      if (formData.password !== formData.confirmPassword) {
+
+      // Vérification de la longueur du mot de passe
+      if (formData.password && formData.password.length < 12) {
+        stepErrors.password = "Le mot de passe doit contenir au moins 12 caractères.";
+      }
+
+      // Vérification des exigences du mot de passe (majuscule, chiffre, caractère spécial)
+      const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
+      if (formData.password && !passwordRegex.test(formData.password)) {
+        stepErrors.password = "Le mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial.";
+      }
+
+      // Vérification que les mots de passe correspondent
+      if (formData.password && formData.password !== formData.confirmPassword) {
         stepErrors.confirmPassword = "Les mots de passe ne correspondent pas.";
       }
     }
+
     if (step === 2) {
-      if (!formData.status) stepErrors.status = "Le statut est obligatoire.";
       if (!formData.username) stepErrors.username = "Le nom d'utilisateur est obligatoire.";
     }
+
+    // Ajouter un message d'erreur global si un champ est manquant
+    if (Object.keys(stepErrors).length === 0 && step === 1 && !formData.email) {
+      stepErrors.global = "Tous les champs doivent être remplis.";
+    }
+
     return stepErrors;
   };
 
@@ -64,7 +87,7 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setServerError(""); // Clear previous server errors
+    setServerError("");
     setIsLoading(true);
 
     const formDataToSend = new FormData();
@@ -128,27 +151,40 @@ const RegisterPage = () => {
                 <div>
                   <label>Mot de passe</label>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
                     aria-required="true"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)} 
+                  >
+                    {showPassword ? "Cacher" : "Voir"}
+                  </button>
                   {errors.password && <p className={styles.error}>{errors.password}</p>}
                 </div>
                 <div>
                   <label>Confirmation du mot de passe</label>
                   <input
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     aria-required="true"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword((prev) => !prev)} 
+                  >
+                    {showConfirmPassword ? "Cacher" : "Voir"}
+                  </button>
                   {errors.confirmPassword && (
                     <p className={styles.error}>{errors.confirmPassword}</p>
                   )}
                 </div>
+                {errors.global && <p className={styles.error}>{errors.global}</p>}
                 <button type="button" className={styles.btn} onClick={handleNextStep}>
                   Suivant
                 </button>
@@ -157,20 +193,6 @@ const RegisterPage = () => {
             {step === 2 && (
               <>
                 <h1 className={styles.title}>Informations</h1>
-                <div>
-                  <label>Statut</label>
-                  <select
-                    name="status"
-                    value={formData.status}
-                    onChange={handleChange}
-                    aria-required="true"
-                  >
-                    <option value="">Sélectionnez</option>
-                    <option value="admin">Admin</option>
-                    <option value="visiteur">Visiteur</option>
-                  </select>
-                  {errors.status && <p className={styles.error}>{errors.status}</p>}
-                </div>
                 <div>
                   <label>Nom d'utilisateur</label>
                   <input
