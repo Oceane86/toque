@@ -1,12 +1,10 @@
 // app/register/page.jsx
-
-
 "use client";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Navbar from '@components/NavBar';
-
+import Navbar from "@components/NavBar";
+import styles from "./register.module.css"; 
 
 const RegisterPage = () => {
   const [step, setStep] = useState(1);
@@ -21,18 +19,18 @@ const RegisterPage = () => {
   });
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
-    if (type === "file") {
-      setFormData({ ...formData, [name]: files[0] });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
-    setErrors({ ...errors, [name]: "" });
-    setServerError(""); // Clear server error on input change
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "file" ? files[0] : value,
+    }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
+    setServerError(""); 
   };
 
   const validateStep = () => {
@@ -56,22 +54,27 @@ const RegisterPage = () => {
     if (Object.keys(stepErrors).length > 0) {
       setErrors(stepErrors);
     } else {
-      setStep(step + 1);
+      setStep((prev) => prev + 1);
     }
+  };
+
+  const handlePreviousStep = () => {
+    setStep((prev) => Math.max(prev - 1, 1));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setServerError(""); // Clear previous server errors
+    setIsLoading(true);
 
     const formDataToSend = new FormData();
-    for (const key in formData) {
-      if (key === "profileImage" && formData[key] instanceof File) {
-        formDataToSend.append(key, formData[key]);
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key === "profileImage" && value instanceof File) {
+        formDataToSend.append(key, value);
       } else {
-        formDataToSend.append(key, formData[key] || "");
+        formDataToSend.append(key, value || "");
       }
-    }
+    });
 
     try {
       const response = await fetch("/api/register", {
@@ -97,116 +100,132 @@ const RegisterPage = () => {
       }
     } catch (error) {
       setServerError("Une erreur inattendue est survenue. Veuillez réessayer.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-<div>
-<Navbar />
-
-    <div className="login">
-
-      <div className="login_content">
-        <form className="login_content_form" onSubmit={handleSubmit}>
-          {step === 1 && (
-            <>
-              <h1 className="gradient-color">Créez votre compte</h1>
-              <div>
-                <label>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-                {errors.email && <p className="error">{errors.email}</p>}
-              </div>
-              <div>
-                <label>Mot de passe</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-                {errors.password && <p className="error">{errors.password}</p>}
-              </div>
-              <div>
-                <label>Confirmation du mot de passe</label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                />
-                {errors.confirmPassword && (
-                  <p className="error">{errors.confirmPassword}</p>
-                )}
-              </div>
-              <button type="button" onClick={handleNextStep}>
-                Suivant
-              </button>
-            </>
-          )}
-          {step === 2 && (
-            <>
-              <h1 className="gradient-color">Informations</h1>
-              <div>
-                <label>Statut</label>
-                <select
-                  name="status"
-                  value={formData.status}
-                  onChange={handleChange}
-                >
-                  <option value="">Sélectionnez</option>
-                  <option value="admin">Admin</option>
-                  <option value="visiteur">Visiteur</option>
-                </select>
-                {errors.status && <p className="error">{errors.status}</p>}
-              </div>
-              <div>
-                <label>Nom d'utilisateur</label>
-                <input
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                />
-                {errors.username && <p className="error">{errors.username}</p>}
-              </div>
-              <button type="button" onClick={handleNextStep}>
-                Suivant
-              </button>
-            </>
-          )}
-          {step === 3 && (
-            <>
-              <h1 className="gradient-color">Profil</h1>
-              <div>
-                <label>Image de profil (optionnel)</label>
-                <input
-                  type="file"
-                  name="profileImage"
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label>Description (optionnel)</label>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleChange}
-                ></textarea>
-              </div>
-              <button type="submit">Finaliser</button>
-            </>
-          )}
-          {serverError && <p className="error">{serverError}</p>}
-        </form>
+    <div>
+      <Navbar />
+      <div className={styles.registerPage}>
+        <div className={styles.registerContent}>
+          <form className={styles.registerForm} onSubmit={handleSubmit}>
+            {step === 1 && (
+              <>
+                <h1 className={styles.title}>Créez votre compte</h1>
+                <div>
+                  <label className={styles.label}>Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    aria-required="true"
+                  />
+                  {errors.email && <p className={styles.error}>{errors.email}</p>}
+                </div>
+                <div>
+                  <label>Mot de passe</label>
+                  <input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    aria-required="true"
+                  />
+                  {errors.password && <p className={styles.error}>{errors.password}</p>}
+                </div>
+                <div>
+                  <label>Confirmation du mot de passe</label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    aria-required="true"
+                  />
+                  {errors.confirmPassword && (
+                    <p className={styles.error}>{errors.confirmPassword}</p>
+                  )}
+                </div>
+                <button type="button" className={styles.btn} onClick={handleNextStep}>
+                  Suivant
+                </button>
+              </>
+            )}
+            {step === 2 && (
+              <>
+                <h1 className={styles.title}>Informations</h1>
+                <div>
+                  <label>Statut</label>
+                  <select
+                    name="status"
+                    value={formData.status}
+                    onChange={handleChange}
+                    aria-required="true"
+                  >
+                    <option value="">Sélectionnez</option>
+                    <option value="admin">Admin</option>
+                    <option value="visiteur">Visiteur</option>
+                  </select>
+                  {errors.status && <p className={styles.error}>{errors.status}</p>}
+                </div>
+                <div>
+                  <label>Nom d'utilisateur</label>
+                  <input
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    aria-required="true"
+                  />
+                  {errors.username && <p className={styles.error}>{errors.username}</p>}
+                </div>
+                <div className={styles.navButtons}>
+                  <button type="button" className={styles.btn} onClick={handlePreviousStep}>
+                    Précédent
+                  </button>
+                  <button type="button" className={styles.btn} onClick={handleNextStep}>
+                    Suivant
+                  </button>
+                </div>
+              </>
+            )}
+            {step === 3 && (
+              <>
+                <h1 className={styles.title}>Profil</h1>
+                <div>
+                  <label>Image de profil (optionnel)</label>
+                  <input
+                    type="file"
+                    name="profileImage"
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
+                  <label>Description (optionnel)</label>
+                  <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                  ></textarea>
+                </div>
+                <div className={styles.navButtons}>
+                  <button type="button" className={styles.btn} onClick={handlePreviousStep}>
+                    Précédent
+                  </button>
+                  <button type="submit" className={styles.btn} disabled={isLoading}>
+                    {isLoading ? "Chargement..." : "Finaliser"}
+                  </button>
+                </div>
+              </>
+            )}
+            {serverError && <p className={styles.error}>{serverError}</p>}
+          </form>
+        </div>
       </div>
     </div>
-    </div>
-
   );
 };
 

@@ -1,0 +1,100 @@
+/* app/register/register.module.css */
+
+.registerPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fef4e8;
+}
+
+.registerContent {
+  width: 90%;
+  max-width: 400px; 
+  background: #ffffff;
+  padding: 1.5rem; 
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;  
+  color: #333;
+  background-color: #fad3ba;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+}
+
+.registerForm div {
+  margin-bottom: 0.8rem;  
+  text-align: left;
+}
+
+.registerForm label {
+  font-size: 0.9rem;
+  color: #555;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.registerForm input,
+.registerForm select,
+.registerForm textarea {
+  width: 100%;
+  padding: 0.7rem; 
+  border: 1px solid #ddd;
+  border-radius: 6px;  
+  background: #f9f9f9;
+  font-size: 0.95rem;  
+  margin-bottom: 0.4rem;
+}
+
+.btn {
+  padding: 0.7rem;  
+  background-color: #fad3ba;
+  color: #fff;
+  border: none;
+  border-radius: 6px; 
+  font-size: 0.95rem;  
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.btn:hover {
+  background-color: #f9a76b;
+}
+
+.navButtons {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px; 
+}
+
+.navButtons button {
+  width: 48%;
+}
+
+.error {
+  color: red;
+  font-size: 0.75rem;
+  margin-top: 0.4rem; 
+}
+
+@media (min-width: 768px) {
+  .registerContent {
+    max-width: 420px; 
+  }
+
+  .title {
+    font-size: 2.2rem;  
+  }
+
+  .btn {
+    width: auto;
+  }
+}
