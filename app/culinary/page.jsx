@@ -1,11 +1,10 @@
 // app/culinary/page.jsx
 
-
-
 "use client";
 import { useEffect, useState } from 'react';
 import Navbar from '@components/NavBar';
 import '../../styles/globals.css';
+import Footer from '@components/Footer';
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState([]);
@@ -74,6 +73,8 @@ export default function Recipes() {
           {recipe.glutenFree != null && <p>{recipe.glutenFree ? 'Sans gluten' : 'Contient du gluten'}</p>}
         </div>
       ))}
+      <Footer/>
+
     </div>
   );
 }
