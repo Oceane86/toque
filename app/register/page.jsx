@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@components/NavBar";
 import styles from "./register.module.css";
+import Footer from "@components/Footer";
 
 const RegisterPage = () => {
   const [step, setStep] = useState(1);
@@ -281,6 +282,7 @@ const RegisterPage = () => {
           </form>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

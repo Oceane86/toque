@@ -24,16 +24,16 @@ const fetchImageForRecipe = async (recipeName) => {
 };
 
 export default function RecipePage() {
-  const [continent, setContinent] = useState(""); // État pour le continent sélectionné
-  const [generatedText, setGeneratedText] = useState([]); // Stocker les recettes générées
-  const [imageUrls, setImageUrls] = useState([]); // Stocker les URL des images
-  const [error, setError] = useState(""); // État pour gérer les erreurs
-  const [loading, setLoading] = useState(false); // État pour gérer l'indicateur de chargement
-  const [imageLoading, setImageLoading] = useState(false); // Indicateur de chargement des images
+  const [continent, setContinent] = useState("");
+  const [generatedText, setGeneratedText] = useState([]); 
+  const [imageUrls, setImageUrls] = useState([]);
+  const [error, setError] = useState(""); 
+  const [loading, setLoading] = useState(false); 
+  const [imageLoading, setImageLoading] = useState(false);
 
   const handleGenerateText = async (uniquePrompt) => {
-    setError(""); // Réinitialiser l'erreur
-    setLoading(true); // Démarrer le chargement
+    setError("");
+    setLoading(true); 
     try {
       const prompt = uniquePrompt
         ? uniquePrompt
@@ -49,14 +49,14 @@ export default function RecipePage() {
 
       const data = await response.json();
       if (response.ok) {
-        return data.text; // Retourner la recette générée
+        return data.text;
       } else {
-        setError(data.error || "Erreur lors de la génération du texte."); // Gestion de l'erreur
+        setError(data.error || "Erreur lors de la génération du texte."); 
       }
     } catch (error) {
       setError("Une erreur s'est produite. Veuillez réessayer plus tard.");
     } finally {
-      setLoading(false); // Fin du chargement
+      setLoading(false); 
     }
   };
 
@@ -81,14 +81,14 @@ export default function RecipePage() {
       const imagePromises = recipes.map((recipe) => fetchImageForRecipe(recipe));
       const images = await Promise.all(imagePromises);
 
-      setGeneratedText(recipes); // Mettre à jour avec les recettes générées
-      setImageUrls(images); // Mettre à jour avec les URL des images
-      setImageLoading(false); // Fin du chargement des images
-      setLoading(false); // Fin du chargement des recettes
+      setGeneratedText(recipes);
+      setImageUrls(images);
+      setImageLoading(false);
+      setLoading(false);
     };
 
-    generateRecipes(); // Appeler la fonction pour générer les recettes automatiquement
-  }, []); // Le tableau vide fait en sorte que cela s'exécute une seule fois au montage de la page
+    generateRecipes(); 
+  }, []); 
 
   const handleContinentChange = (e) => {
     const selectedContinent = e.target.value;
@@ -97,18 +97,18 @@ export default function RecipePage() {
     // Si un continent est sélectionné, générez la recette liée au continent
     if (selectedContinent) {
       setLoading(true);
-      setGeneratedText([]); // Réinitialiser les recettes générées
-      setImageUrls([]); // Réinitialiser les images
+      setGeneratedText([])
+      setImageUrls([]);
 
       const continentPrompt = `Génère une recette typique du continent ${selectedContinent}.`;
 
       // Générer la recette spécifique au continent
       handleGenerateText(continentPrompt).then((recipe) => {
-        setGeneratedText((prevRecipes) => [...prevRecipes, recipe]); // Ajouter la recette du continent à la liste
+        setGeneratedText((prevRecipes) => [...prevRecipes, recipe]);
         fetchImageForRecipe(recipe).then((imageUrl) => {
-          setImageUrls((prevImages) => [...prevImages, imageUrl]); // Ajouter l'image à la liste
+          setImageUrls((prevImages) => [...prevImages, imageUrl]); 
         });
-        setLoading(false); // Fin du chargement
+        setLoading(false); 
       });
     }
   };
@@ -138,7 +138,7 @@ export default function RecipePage() {
       )}
 
 
-      {error && <p style={{ color: "red" }}>{error}</p>} {/* Affiche l'erreur si elle existe */}
+      {error && <p style={{ color: "red" }}>{error}</p>} 
     </div>
   );
 }
