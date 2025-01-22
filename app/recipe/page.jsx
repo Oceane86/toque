@@ -137,23 +137,6 @@ export default function RecipePage() {
         </div>
       )}
 
-      {/* Afficher le sélecteur de continent après la génération des recettes */}
-      <div>
-        <label htmlFor="continent-select">Choisissez un continent :</label>
-        <select
-          id="continent-select"
-          value={continent}
-          onChange={handleContinentChange}
-        >
-          <option value="">-- Aucun --</option>
-          <option value="Afrique">Afrique</option>
-          <option value="Asie">Asie</option>
-          <option value="Europe">Europe</option>
-          <option value="Amérique du Nord">Amérique du Nord</option>
-          <option value="Amérique du Sud">Amérique du Sud</option>
-          <option value="Océanie">Océanie</option>
-        </select>
-      </div>
 
       {error && <p style={{ color: "red" }}>{error}</p>} {/* Affiche l'erreur si elle existe */}
     </div>

@@ -4,6 +4,7 @@
 "use client";
 import '../styles/globals.css';
 import Navbar from '@components/NavBar';
+import Footer from '@components/Footer';
 
 const Home = () => {
   return (
@@ -63,10 +64,8 @@ const Home = () => {
         </button>
       </section>
 
-      {/* Footer */}
-      <footer id="contact" className="footer">
-        <p>© 2024 MonApp. Tous droits réservés.</p>
-      </footer>
+      <Footer/>
+
     </main>
   );
 };

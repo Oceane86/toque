@@ -1,0 +1,107 @@
+/* app/challenges/challenges.module.css */
+
+  .title {
+    text-align: center;
+    font-size: 2rem;
+    margin: 2rem 0;
+    color: #2c3e50;
+    font-weight: 600;
+  }
+  
+  /* Liste des recettes */
+  .recipesList {
+    padding: 1rem;
+  }
+  
+  /* Carte de recette */
+  .recipeCard {
+    margin-top: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .recipeCard:hover {
+    transform: translateY(-10px);
+  }
+  
+  /* Description de la recette */
+  .recipeDescription {
+    text-align: left;
+    margin-bottom: 1rem;
+    color: #7f8c8d;
+  }
+  
+  .recipeDescription strong {
+    color: #34495e;
+  }
+  
+  /* Image de recette */
+  .recipeImage {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  /* Bouton de participation */
+  .participateButton {
+    background-color: #FFA175;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .participateButton:hover {
+    background-color: #E75012;
+  }
+  
+  /* Message d'erreur */
+  .error {
+    color: red;
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  
+  /* Responsivité */
+  @media (max-width: 768px) {
+    .title {
+      font-size: 1.5rem;
+    }
+  
+    .recipeCard {
+      width: 90%; /* Largeur plus petite pour mieux s'adapter aux petits écrans */
+      margin: 0 auto 1.5rem;
+    }
+  
+    .participateButton {
+      width: 100%;
+      padding: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      font-size: 1.25rem;
+    }
+  
+    .recipeCard {
+      width: 100%;
+      padding: 1rem;
+    }
+  
+    .participateButton {
+      padding: 0.8rem;
+    }
+  }
+  

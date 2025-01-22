@@ -1,12 +1,12 @@
 // app/challenges/page.jsx
-
-
 "use client";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";  
 import { useSession } from "next-auth/react"; 
 import Navbar from '@components/NavBar';
+import styles from "./challenges.module.css";  
+import Footer from "@components/Footer";
 
 // Fonction pour récupérer une image de recette depuis Pexels
 const fetchImageForRecipe = async (recipeName) => {
@@ -40,7 +40,7 @@ const extractCountry = (recipeText) => {
 };
 
 export default function ChallengesPage() {
-  const { data: session, status } = useSession();  // Récupération de la session utilisateur
+  const { data: session, status } = useSession();  
   const router = useRouter(); 
   const [generatedRecipes, setGeneratedRecipes] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
@@ -107,37 +107,62 @@ export default function ChallengesPage() {
   };
 
   if (status === "loading") {
-    return <div>Chargement...</div>;  // Affichage pendant le chargement de la session
+    return <div>Chargement...</div>;  
   }
 
   if (!session?.user) {
-    // Si l'utilisateur n'est pas connecté, on le redirige vers la page de login
-    router.push("/login");  // Redirige vers la page de connexion
+    router.push("/login"); 
     return <div>Redirection vers la page de connexion...</div>; 
   }
 
   return (
     <div>
       <Navbar />
-      <h1>Générateur de recettes avec Gemini</h1>
+      <h1 className={styles.title}>Générateur de recettes avec Gemini</h1> 
       {loading && <p>Génération des recettes...</p>}
       {generatedRecipes.length > 0 && (
-        <div>
+        <div className={styles.recipesList}>
           <h2>Recettes générées :</h2>
           {generatedRecipes.map((recipe, index) => (
-            <div key={index}>
+            <div key={index} className={styles.recipeCard}>
               <h3>Recette {index + 1} :</h3>
-              <p>{recipe.description}</p>
-              <p><strong>Origine du pays :</strong> {recipe.origin || "Non spécifiée"}</p> {/* Affichage de l'origine */}
+              <p className={styles.recipeDescription}>
+                {recipe.description.split('\n').map((line, index) => {
+                  if (line.startsWith('Ingrédients:')) {
+                    return (
+                      <div key={index}>
+                        <strong>Ingrédients:</strong>
+                        <ul>
+                          {line.split(',').map((ingredient, idx) => (
+                            <li key={idx}>{ingredient.trim()}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  } else if (line.startsWith('Instructions:')) {
+                    return (
+                      <div key={index}>
+                        <strong>Instructions:</strong>
+                        <ol>
+                          {line.split('.').map((step, idx) => (
+                            <li key={idx}>{step.trim()}</li>
+                          ))}
+                        </ol>
+                      </div>
+                    );
+                  } else {
+                    return <p key={index}>{line}</p>;
+                  }
+                })}
+              </p>
               {imageUrls[index] ? (
-                <img src={imageUrls[index]} alt={`Image de ${recipe.description}`} style={{ maxWidth: "100%", height: "auto" }} />
+                <img src={imageUrls[index]} alt={`Image de ${recipe.description}`} className={styles.recipeImage} />
               ) : (
                 <p>Aucune image disponible pour cette recette.</p>
               )}
-              {/* Bouton "Je participe" qui redirige vers la page de participation pour ce challenge spécifique */}
               <button 
                 onClick={() => handleParticipate(recipe._id)} 
-                style={{ padding: "10px 20px", marginTop: "20px", cursor: "pointer" }}
+                className={styles.participateButton}
               >
                 Je participe
               </button>
@@ -145,7 +170,8 @@ export default function ChallengesPage() {
           ))}
         </div>
       )}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className={styles.error}>{error}</p>}
+      <Footer/>
     </div>
   );
 }

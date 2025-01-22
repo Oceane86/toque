@@ -7,6 +7,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Navbar from '@components/NavBar';
+import Footer from '@components/Footer';
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -97,6 +98,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </>
     );
 };
