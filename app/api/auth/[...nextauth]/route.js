@@ -7,7 +7,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/models/User";
 import { compare } from "bcryptjs";
 
-const handler = NextAuth({
+export const authOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -58,7 +58,6 @@ const handler = NextAuth({
                             username: profile.name,
                             profileImagePath: profile.picture,
                             isGoogleUser: true,
-                          
                         });
                     }
                     return true;
@@ -74,6 +73,8 @@ const handler = NextAuth({
             return baseUrl;
         },
     }
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

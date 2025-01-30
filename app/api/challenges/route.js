@@ -2,8 +2,8 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { connectToDB } from "@/mongodb/database";
 import Challenge from "@/models/Challenge";
-import User from "@/models/User"; 
-import Post from "@/models/Post"; 
+import User from "@/models/User";
+import Post from "@/models/Post";
 
 const weeklyPrompts = [
   // Semaine 1 : Recettes du monde entier, adaptées à divers régimes
@@ -30,31 +30,6 @@ function getWeeklyPrompt() {
   return weeklyPrompts[currentWeek];
 }
 
-// Fonction pour rechercher des images avec pexels
-const fetchPexelsImages = async (query) => {
-  try {
-    const apiKey = process.env.PEXELS_API_KEY;
-    const response = await fetch(`https://api.pexels.com/v1/search?query=${query}&per_page=5`, {
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des images de Pexels');
-    }
-
-    const data = await response.json();
-    if (data.photos) {
-      return data.photos.map(photo => photo.src.original);  
-    }
-    return [];
-  } catch (error) {
-    console.error('Erreur Pexels:', error.message);
-    return [];  
-  }
-};
-
 // Fonction pour extraire les ingrédients du texte de la recette
 function extractIngredients(text) {
   const ingredientRegex = /\b(\d+\s?[a-zA-Z]+\s?[a-zA-Z]*\s?[a-zA-Z]*)\b/g;
@@ -77,11 +52,34 @@ function extractInstructions(text) {
   return instructions.join(' '); 
 }
 
+// Fonction pour extraire le temps de préparation
+function extractPreparationTime(text) {
+  const timeRegex = /(?:préparation|temps de préparation)[\s\S]*?(\d+\s?[min|h|m]+)/gi;
+  const match = timeRegex.exec(text);
+  return match ? match[1] : 'Temps non spécifié';
+}
+
+// Fonction pour nettoyer le formatage markdown du texte
+function cleanMarkdownFormatting(text) {
+  // Enlève les titres (ex: ## Titre)
+  text = text.replace(/##\s+/g, '');
+
+  // Enlève les puces de listes (ex: * élément de liste)
+  text = text.replace(/\*\s+/g, '');
+
+  // Enlève d'autres éléments markdown si nécessaire (par exemple, les liens, italique, gras)
+  text = text.replace(/\[.*?\]\(.*?\)/g, '');  // Retirer les liens
+  text = text.replace(/\*\*.*?\*\*/g, '');     // Retirer le gras (bold)
+  text = text.replace(/\*.*?\*/g, '');         // Retirer l'italique
+
+  return text;
+}
+
 export async function POST(req) {
   const { prompt, userId } = await req.json(); 
-  
+
   const finalPrompt = prompt || getWeeklyPrompt();
-  
+
   const apiKey = process.env.GEMINI_API_KEY;
   const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
@@ -89,10 +87,24 @@ export async function POST(req) {
   try {
     // Génère la recette avec Gemini
     const result = await model.generateContent(finalPrompt);
-    const recipeText = result.response.text();
 
-    // Recherche d'images correspondantes sur Pexels
-    const pexelsImages = await fetchPexelsImages(recipeText.split(' ')[0]);
+    // Vérification de la réponse de Gemini
+    if (!result || !result.response || typeof result.response.text !== 'function') {
+      throw new Error('Réponse inattendue de l\'API Gemini');
+    }
+
+    let recipeText = result.response.text();
+
+    // Assurez-vous que `recipeText` est bien une chaîne
+    if (typeof recipeText !== 'string') {
+      recipeText = JSON.stringify(recipeText); // Convertit en chaîne si nécessaire
+    }
+
+    // Nettoyer le texte avant de l'utiliser
+    recipeText = cleanMarkdownFormatting(recipeText);
+
+    // Image générique (à remplacer par l'URL d'une image générique)
+    const genericImage = "../../../public/assets/cuisine.png";
 
     // Connexion à la base de données
     await connectToDB();
@@ -103,19 +115,22 @@ export async function POST(req) {
 
     // Enregistrement du challenge dans la collection Challenge
     const newChallenge = await Challenge.create({
-      title: `Recette de la semaine: ${recipeText.split(' ')[0]}`, 
+      title: `Recette de la semaine: ${recipeText.split(' ')[0]}`,
       description: recipeText,
-      ingredients: extractIngredients(recipeText),  
-      instructions: extractInstructions(recipeText), 
-      pexelsImages: pexelsImages, 
-      createdBy: "Gemini",  
-      endDate: endDate, 
+      origin: String,
+      diet: String,
+      ingredients: extractIngredients(recipeText),
+      instructions: extractInstructions(recipeText),
+      preparationTime: extractPreparationTime(recipeText),
+      pexelsImages: [genericImage], // Utilisation de l'image générique
+      createdBy: "Gemini",
+      endDate: endDate,
     });
 
     // Ajout du challenge dans la collection User
     await User.findByIdAndUpdate(userId, {
       $push: { challenges: newChallenge._id },
-      $push: { posts: newChallenge._id }  
+      $push: { posts: newChallenge._id }
     });
 
     return new Response(
@@ -123,7 +138,7 @@ export async function POST(req) {
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (error) {
-    console.error('Erreur API Gemini:', error);
+    console.error('Erreur lors de la génération du texte avec Gemini:', error.message);
     return new Response(
       JSON.stringify({ error: 'Erreur lors de la génération du texte avec Gemini' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }

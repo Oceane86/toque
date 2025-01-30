@@ -1,19 +1,21 @@
 // app/challenges/[id]/page.jsx
-
-
 "use client";
 import Navbar from '@components/NavBar';
 import styles from './page.module.css'; 
 import { useEffect, useState } from "react";
-import Link from '@node_modules/next/link';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { useSession, signIn } from "next-auth/react"; 
 
 const ChallengePage = ({ params }) => {
     const { id } = params;
+    const { data: session, status } = useSession();
     const [challenge, setChallenge] = useState(null);
     const [error, setError] = useState(null);
-    const [file, setFile] = useState(null); // Photo du plat
-    const [sharedPhotos, setSharedPhotos] = useState([]); // Photos partagées par les utilisateurs
-    const [message, setMessage] = useState(""); // Message d'erreur ou de succès
+    const [message, setMessage] = useState("");
+    const [isParticipating, setIsParticipating] = useState(false);
+    const [showPopup, setShowPopup] = useState(false); 
+    const router = useRouter();
 
     useEffect(() => {
         const fetchChallenge = async () => {
@@ -32,36 +34,43 @@ const ChallengePage = ({ params }) => {
         fetchChallenge();
     }, [id]);
 
-    const handleFileChange = (event) => {
-        setFile(event.target.files[0]);
+    
+
+    const handleParticipation = () => {
+        setIsParticipating(false);
+        setMessage("Vous avez choisi de ne pas participer à ce défi.");
+        router.push('/challenges');
     };
 
-    const handleSubmitPhoto = async () => {
-        if (!file) {
-            setMessage("Veuillez télécharger une photo.");
-            return;
-        }
-        const formData = new FormData();
-        formData.append("photo", file);
-        formData.append("challengeId", id);
-
-        try {
-            const response = await fetch(`/api/challenges/share-photo`, {
-                method: 'POST',
-                body: formData,
-            });
-
-            if (!response.ok) {
-                throw new Error("Erreur lors du partage de la photo.");
+    const handleJoinChallenge = async () => {
+        if (!session) {
+            signIn();
+        } else {
+            try {
+                const response = await fetch('/api/users/participation', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userId: session.user.id, challengeId: id }),
+                });
+    
+                if (!response.ok) {
+                    throw new Error("Erreur lors de la mise à jour de la participation.");
+                }
+    
+                setIsParticipating(true);
+                setMessage("Vous participez maintenant à ce défi.");
+                setShowPopup(true); // Affiche la popup après avoir rejoint le défi
+            } catch (error) {
+                console.error("Erreur:", error);
+                setMessage("Erreur lors de la participation au défi.");
             }
-
-            const data = await response.json();
-            setSharedPhotos([...sharedPhotos, data.photoUrl]); // Mettre à jour les photos partagées
-            setMessage("Photo partagée avec succès !");
-            setFile(null);
-        } catch (err) {
-            setMessage(err.message);
         }
+    };
+
+    const closePopup = () => {
+        setShowPopup(false);
     };
 
     if (error) {
@@ -72,6 +81,8 @@ const ChallengePage = ({ params }) => {
         return <div className={styles.loading}>Chargement...</div>;
     }
 
+    const instructions = Array.isArray(challenge.instructions) ? challenge.instructions : [];
+
     return (          
         <>
             <Navbar />
@@ -79,42 +90,32 @@ const ChallengePage = ({ params }) => {
                 <h1 className={styles.title}>{challenge.title}</h1>
                 <p className={styles.description}>{challenge.description}</p>
 
-                <div className={styles.ingredients}>
-                    <h2>Ingrédients</h2>
-                    <ul>
-                        {challenge.ingredients && challenge.ingredients.length > 0 ? (
-                            challenge.ingredients.map((ingredient, index) => (
-                                <li key={index}>{ingredient}</li>
-                            ))
-                        ) : (
-                            <p>Aucun ingrédient spécifié</p>
-                        )}
-                    </ul>
-                </div>
-
-                <div className={styles.instructions}>
-                    <h2>Instructions</h2>
-                    <ol>
-                        {challenge.instructions && challenge.instructions.split('\n').map((step, index) => (
-                            <li key={index}>{step}</li>
-                        ))}
-                    </ol>
-                </div>
-
-                 {/* Lien vers la page d'upload */}
-                 <div className={styles.share}>
-                    <h3>Partagez votre plat avec une photo</h3>
-                    <Link href={`/challenges/${id}/partage`}>
-                        <button>Ajouter une photo</button>
-                    </Link>
-                </div>
-
-                
+                <button onClick={handleJoinChallenge} className={styles.joinButton}>
+                    Je participe
+                </button>
+                <button onClick={handleParticipation} className={styles.notParticipateButton}>
+                    Je ne participe pas
+                </button>
 
                 <div className={styles.footer}>
                     <p><strong>Créé par:</strong> {challenge.createdBy}</p>
                     <p><strong>Fin du challenge:</strong> {new Date(challenge.endDate).toLocaleDateString()}</p>
                 </div>
+
+                {message && <p className={styles.message}>{message}</p>}
+
+                {showPopup && (
+                    <div className={styles.popup}>
+                        <div className={styles.popupContent}>
+                            <h2>Félicitations!</h2>
+                            <p>N'hésitez pas à partager votre plat avec les autres participants.</p>
+                            <Link href={`/challenges/${id}/partage`}>
+                                <button>Partager votre plat</button>
+                            </Link>
+                            <button onClick={closePopup}>Fermer</button>
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );

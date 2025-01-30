@@ -8,8 +8,8 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   profileImagePath: { type: String, default: 'assets/default-profile.png' },
   description: { type: String, default: '' },
-  challengeIds: [{ type: String, ref: 'Challenge' }],  
-  postEmails: [{ type: String, ref: 'Post' }],
+  challenges: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Challenge' }], 
+  post: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
 });
 
 const User = mongoose.models.User || mongoose.model('User', UserSchema);

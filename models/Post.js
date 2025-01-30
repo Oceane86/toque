@@ -33,6 +33,15 @@ const postSchema = new mongoose.Schema(
         },
       },
     ],
+    photoUrl: { // URL de la photo partagée
+      type: String,
+      required: false, // Photo est optionnelle
+    },
+    challengeId: { // L'ID du challenge auquel le post est lié
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Challenge", // Référence au modèle Challenge
+      required: true,
+    },
     createdAt: {
       type: Date,
       default: Date.now,

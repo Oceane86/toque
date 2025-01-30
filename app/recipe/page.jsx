@@ -3,19 +3,39 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import Navbar from "@components/NavBar";
+import styles from "./../challenges/challenges.module.css";
+import Footer from "@components/Footer";
 
-// Fonction pour obtenir une image de plat via l'API Unsplash
+// Fonction pour récupérer une image de recette depuis l'API Stable Diffusion (via Replicate)
 const fetchImageForRecipe = async (recipeName) => {
-  const accessKey = "JOuNEAttntEEr_VVGNLnM6lwqvAs8m9ENDO1Og7rQQk"; // Remplacez par votre clé API Unsplash
-  const url = `https://api.unsplash.com/search/photos?query=${recipeName}&client_id=${accessKey}`;
+  const apiKey = process.env.NEXT_PUBLIC_REPLICATE_API_KEY; // Utilisation de NEXT_PUBLIC pour les variables d'environnement côté client
+  const url = "https://api.replicate.com/v1/predictions";
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        version: "stability-ai/stable-diffusion-2",
+        input: {
+          prompt: `A delicious and visually appealing image of ${recipeName} dish`,
+          num_inference_steps: 50,
+        },
+      }),
+    });
+
     const data = await response.json();
-    if (data.results && data.results.length > 0) {
-      return data.results[0].urls.small; // Retourner l'URL de la première image trouvée
+    if (data?.output?.length > 0) {
+      return data.output[0];
     } else {
-      return null; // Si aucune image n'est trouvée
+      console.error("Aucune image générée :", data);
+      return null;
     }
   } catch (error) {
     console.error("Erreur lors de la récupération de l'image :", error);
@@ -23,23 +43,28 @@ const fetchImageForRecipe = async (recipeName) => {
   }
 };
 
-export default function RecipePage() {
-  const [continent, setContinent] = useState("");
-  const [generatedText, setGeneratedText] = useState([]); 
+// Fonction pour extraire l'origine du pays
+const extractCountry = (recipeText) => {
+  const regex = /Origine\s*:\s*([A-Za-z\s]+)/;
+  const match = recipeText.match(regex);
+  return match ? match[1].trim() : "Non spécifiée";
+};
+
+export default function ChallengesPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  const [generatedRecipes, setGeneratedRecipes] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
-  const [error, setError] = useState(""); 
-  const [loading, setLoading] = useState(false); 
-  const [imageLoading, setImageLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleGenerateText = async (uniquePrompt) => {
     setError("");
-    setLoading(true); 
     try {
-      const prompt = uniquePrompt
-        ? uniquePrompt
-        : "Génère une recette de cuisine traditionnelle variée avec des ingrédients détaillés et des instructions claires.";
-
-      const response = await fetch("/api/recipe", {
+      const prompt =
+        uniquePrompt ||
+        "Génère une recette de cuisine traditionnelle variée avec des ingrédients détaillés, en ajoutant le nom du pays d'origine du plat et des instructions claires.";
+      const response = await fetch("/api/challenges", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,98 +72,91 @@ export default function RecipePage() {
         body: JSON.stringify({ prompt }),
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        return data.text;
-      } else {
-        setError(data.error || "Erreur lors de la génération du texte."); 
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Erreur lors de la génération du texte.");
       }
+
+      const data = await response.json();
+      const origin = extractCountry(data.challenge.description);
+      return { ...data.challenge, origin };
     } catch (error) {
-      setError("Une erreur s'est produite. Veuillez réessayer plus tard.");
-    } finally {
-      setLoading(false); 
+      setError(error.message || "Une erreur s'est produite.");
+      return null;
     }
   };
 
-  // Utilisation d'un effet pour générer des recettes dès le chargement de la page
   useEffect(() => {
     const generateRecipes = async () => {
       setLoading(true);
-      setImageLoading(true);
-
-      // Prompts variés pour générer plusieurs recettes différentes
       const prompts = [
-        "Génère une recette traditionnelle avec des ingrédients locaux.",
-        "Propose une recette innovante avec des ingrédients du monde entier.",
-        "Crée une recette simple mais savoureuse pour un dîner rapide.",
-        "Génère une recette pour un plat végétarien avec des ingrédients courants."
+        "Génère une recette traditionnelle venant de différents pays, adaptée à divers régimes alimentaires et indique le pays d'origine de la recette.",
+        "Propose une recette innovante, végétarienne et épicée.",
+        "Génère une recette traditionnelle sucrée avec des fruits de saison.",
       ];
 
-      // Générer plusieurs recettes à partir des prompts différents
-      const recipes = await Promise.all(prompts.map(prompt => handleGenerateText(prompt)));
+      const recipes = await Promise.all(prompts.map((prompt) => handleGenerateText(prompt)));
+      const validRecipes = recipes.filter(Boolean);
+      setGeneratedRecipes(validRecipes);
 
       // Récupérer les images pour chaque recette
-      const imagePromises = recipes.map((recipe) => fetchImageForRecipe(recipe));
-      const images = await Promise.all(imagePromises);
-
-      setGeneratedText(recipes);
+      const images = await Promise.all(
+        validRecipes.map((recipe) => fetchImageForRecipe(recipe.title))
+      );
       setImageUrls(images);
-      setImageLoading(false);
+
       setLoading(false);
     };
 
-    generateRecipes(); 
-  }, []); 
+    generateRecipes();
+  }, []);
 
-  const handleContinentChange = (e) => {
-    const selectedContinent = e.target.value;
-    setContinent(selectedContinent);
-    
-    // Si un continent est sélectionné, générez la recette liée au continent
-    if (selectedContinent) {
-      setLoading(true);
-      setGeneratedText([])
-      setImageUrls([]);
-
-      const continentPrompt = `Génère une recette typique du continent ${selectedContinent}.`;
-
-      // Générer la recette spécifique au continent
-      handleGenerateText(continentPrompt).then((recipe) => {
-        setGeneratedText((prevRecipes) => [...prevRecipes, recipe]);
-        fetchImageForRecipe(recipe).then((imageUrl) => {
-          setImageUrls((prevImages) => [...prevImages, imageUrl]); 
-        });
-        setLoading(false); 
-      });
-    }
+  const handleParticipate = (challengeId) => {
+    router.push(`/challenges/${challengeId}`);
   };
+
+  if (status === "loading") {
+    return <div>Chargement...</div>;
+  }
+
+  if (!session?.user) {
+    router.push("/login");
+    return <div>Redirection vers la page de connexion...</div>;
+  }
 
   return (
     <div>
-      <h1>Générateur de recette avec Gemini</h1>
-
-      {loading && <p>Génération des recettes...</p>}
-      {generatedText.length > 0 && (
-        <div>
-          <h2>Recettes générées :</h2>
-          {generatedText.map((recipe, index) => (
-            <div key={index}>
-              <h3>Recette {index + 1} :</h3>
-              <p>{recipe}</p>
-              {imageLoading ? (
-                <p>Chargement de l'image...</p>
-              ) : imageUrls[index] ? (
-                <img src={imageUrls[index]} alt={`Image de ${recipe}`} style={{ width: "100%", maxWidth: "400px" }} />
+      <Navbar />
+      <h1>Recettes Générées</h1>
+      {loading ? (
+        <div>Chargement des recettes...</div>
+      ) : error ? (
+        <div className={styles.error}>{error}</div>
+      ) : (
+        <div className={styles.recipeList}>
+          {generatedRecipes.map((recipe, index) => (
+            <div key={index} className={styles.recipeCard}>
+              <h3>{recipe.title}</h3>
+              {imageUrls[index] ? (
+                <img src={imageUrls[index]} alt={recipe.title} className={styles.recipeImage} />
               ) : (
-                <img src="/images/default-image.jpg" alt="Image générique" style={{ width: "100%", maxWidth: "400px" }} />
+                <p>Aucune image disponible.</p>
               )}
+              <p>
+                <strong>Origine :</strong> {recipe.origin}
+              </p>
+              <p>
+                <strong>Ingrédients :</strong> {recipe.ingredients.join(", ")}
+              </p>
+              <p>
+                <strong>Instructions :</strong> {recipe.instructions}
+              </p>
+              <button onClick={() => handleParticipate(recipe._id)}>Participer</button>
             </div>
           ))}
         </div>
       )}
-
-
-      {error && <p style={{ color: "red" }}>{error}</p>} 
+      <Footer />
     </div>
   );
 }
