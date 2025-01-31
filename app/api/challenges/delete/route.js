@@ -2,8 +2,8 @@
 
 
 import { NextResponse } from "next/server";
-import { connectToDatabase } from "@lib/mongodb"; // Adapter selon ton module MongoDB
 import cloudinary from "cloudinary";
+import { connectToDB } from "@mongodb/database";
 
 // Configurer Cloudinary si nécessaire
 cloudinary.config({
@@ -21,7 +21,7 @@ export async function DELETE(req) {
 
   try {
     // Connexion à la base de données
-    const { db } = await connectToDatabase();
+    const { db } = await connectToDB();
 
     // Supprimer la photo de la base de données
     const result = await db.collection("photos").deleteOne({ photoUrl, challengeId });
