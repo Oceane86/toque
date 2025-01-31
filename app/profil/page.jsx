@@ -2,42 +2,98 @@
 
 "use client";
 
-import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
 import Navbar from '@components/NavBar';
+import styles from './profil.module.css';
+import { useEffect, useState } from "react";
+import { useSession, signOut } from "next-auth/react"; 
 
+const ProfilePage = () => {
+    const { data: session, status } = useSession();
+    const [challenges, setChallenges] = useState([]);
+    const [error, setError] = useState(null);
+    const [activeTab, setActiveTab] = useState('profile');
 
-export default function Profile() {
-  const { data: session } = useSession();
-  const [challenges, setChallenges] = useState([]);
+    useEffect(() => {
+        if (session) {
+            const fetchUserChallenges = async () => {
+                try {
+                    const response = await fetch(`/api/users/${session.user.id}/challenges`);
+                    if (!response.ok) {
+                        throw new Error("Erreur lors de la récupération des défis.");
+                    }
+                    const data = await response.json();
+                    setChallenges(data);
+                } catch (err) {
+                    setError(err.message);
+                }
+            };
 
-  useEffect(() => {
-    if (session) {
-      fetch("/api/users/history", {
-        headers: {
-          Authorization: `Bearer ${session.user.email}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => setChallenges(data.challenges));
+            fetchUserChallenges();
+        }
+    }, [session]);
+
+    if (status === "loading") {
+        return <div className={styles.loading}>Chargement...</div>;
     }
-  }, [session]);
 
-  if (!session) {
-    return <p>You need to be signed in to view your profile.</p>;
-  }
+    if (error) {
+        return <div className={styles.error}>Erreur: {error}</div>;
+    }
 
-  return (
-    <div>
-      <Navbar />
+    return (
+        <>
+            <Navbar />
+            <div className={styles.container}>
+                <div className={styles.tabs}>
+                    <button
+                        className={activeTab === 'profile' ? styles.activeTab : ''}
+                        onClick={() => setActiveTab('profile')}
+                    >
+                        Profil
+                    </button>
+                    <button
+                        className={activeTab === 'history' ? styles.activeTab : ''}
+                        onClick={() => setActiveTab('history')}
+                    >
+                        Historique
+                    </button>
+                </div>
+                {activeTab === 'profile' && (
+                    <div className={styles.profile}>
+                        <h1>Profil</h1>
+                        {session && (
+                            <>
+                                {session.user.name && <p><strong>Nom:</strong> {session.user.name}</p>}
+                                {session.user.email && <p><strong>Email:</strong> {session.user.email}</p>}
+                                {session.user.username && <p><strong>Nom d'utilisateur:</strong> {session.user.username}</p>}
+                                <button className={styles.logoutButton} onClick={() => signOut()}>
+                                    Déconnexion
+                                </button>
+                            </>
+                        )}
+                    </div>
+                )}
+                {activeTab === 'history' && (
+                    <div className={styles.history}>
+                        <h1>Historique des défis</h1>
+                        {challenges.length === 0 ? (
+                            <p>Vous n'avez pas encore participé à des défis.</p>
+                        ) : (
+                            <ul className={styles.challengeList}>
+                                {challenges.map((challenge) => (
+                                    <li key={challenge.id} className={styles.challengeItem}>
+                                        <h2>{challenge.title}</h2>
+                                        <p>{challenge.description}</p>
+                                        <p><strong>Fin du challenge:</strong> {new Date(challenge.endDate).toLocaleDateString()}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                )}
+            </div>
+        </>
+    );
+};
 
-      <h1>Welcome, {session.user.name}</h1>
-      <h2>Your Challenge History:</h2>
-      <ul>
-        {challenges.map((challenge) => (
-          <li key={challenge._id}>{challenge.title}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+export default ProfilePage;
