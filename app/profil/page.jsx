@@ -1,19 +1,25 @@
 // app/profil/page.jsx
-
 "use client";
 
 import Navbar from '@components/NavBar';
 import styles from './profil.module.css';
 import { useEffect, useState } from "react";
-import { useSession, signOut } from "next-auth/react"; 
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from 'next/navigation';
 
 const ProfilePage = () => {
     const { data: session, status } = useSession();
     const [challenges, setChallenges] = useState([]);
     const [error, setError] = useState(null);
     const [activeTab, setActiveTab] = useState('profile');
+    const router = useRouter();
 
     useEffect(() => {
+        if (status === "unauthenticated") {
+            // Redirect to login page if not authenticated
+            router.push('/login');
+        }
+
         if (session) {
             const fetchUserChallenges = async () => {
                 try {
@@ -30,7 +36,7 @@ const ProfilePage = () => {
 
             fetchUserChallenges();
         }
-    }, [session]);
+    }, [session, status, router]);
 
     if (status === "loading") {
         return <div className={styles.loading}>Chargement...</div>;
