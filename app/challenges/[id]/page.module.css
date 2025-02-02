@@ -1,6 +1,4 @@
 /* app/challenges/[id]/page.module.css */
-
-/* Container principal */
 .container {
   max-width: 900px;
   margin: 0 auto;
@@ -12,17 +10,15 @@
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Titre de la recette */
 .title {
   font-size: 2.8rem;
   font-weight: bold;
-  color: #2d3b55;
+  color: #FFA175;
   margin-bottom: 25px;
   text-align: center;
   text-transform: capitalize;
 }
 
-/* Description de la recette */
 .description {
   font-size: 1.1rem;
   color: #555;
@@ -31,29 +27,34 @@
   line-height: 1.7;
 }
 
-/* Boutons de participation */
 .joinButton, .notParticipateButton {
   padding: 10px 20px;
   margin: 10px;
-  background-color: #2d3b55;
+  background-color: #FFA175;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
+.notParticipateButton {
+  background-color: #000000;
+}
+
+.notParticipateButton:hover {
+  background-color: #cc3a3a;
+}
+
 .joinButton:hover, .notParticipateButton:hover {
   background-color: #1a2635;
 }
 
-/* Footer */
 .footer {
   margin-top: 20px;
   font-size: 0.9rem;
   color: #555;
 }
 
-/* Message */
 .message {
   margin-top: 20px;
   font-size: 1rem;
@@ -61,7 +62,6 @@
   font-weight: bold;
 }
 
-/* Popup */
 .popup {
   position: fixed;
   top: 0;
@@ -80,27 +80,47 @@
   border-radius: 10px;
   text-align: center;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .popupContent h2 {
   margin-bottom: 20px;
-  color: #2d3b55;
+  color: #FFA175;
 }
 
 .popupContent button {
   padding: 10px 20px;
-  background-color: #2d3b55;
+  background-color: #FFA175;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin: 10px 0;
+  width: 100%;
 }
 
 .popupContent button:hover {
   background-color: #1a2635;
 }
 
-/* Réactions visuelles */
+
+button.closeButton {
+  padding: 8px 16px;
+  background-color: black;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  width: 23%;
+}
+
+.closeButton:hover {
+  background-color: #FF3B30;
+}
+
 .error {
   color: red;
   font-weight: bold;
@@ -110,7 +130,6 @@
   color: #FFA175;
 }
 
-/* Media Queries */
 @media (max-width: 768px) {
   .container {
     padding: 15px;
@@ -128,6 +147,10 @@
     width: 100%;
     margin: 5px 0;
   }
+
+  .popupContent button {
+    width: 80%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -137,5 +160,9 @@
 
   .description {
     font-size: 0.9rem;
+  }
+
+  .popupContent button {
+    width: 90%;
   }
 }

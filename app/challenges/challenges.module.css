@@ -1,59 +1,145 @@
 /* app/challenges/challenges.module.css */
-.recipesList {
-  display: flex;  
-  flex-wrap: wrap;  
-  gap: 1.3rem;  
-  justify-content: center;  
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
   margin-top: 2rem;
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
+  color: #333;
 }
 
-/* Style des cartes de recettes */
+.motivationalText {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  color: #555;
+  padding: 0 1rem;
+}
+
+.recipesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+}
+
 .recipeCard {
-  flex: 1 1 300px;  
-  margin: 10px; 
-  padding: 15px;
-  max-width: 300px; 
-  background-color: #f4f4f4;
-  border-radius: 8px;
+  flex: 1 1 320px;
+  margin: 10px;
+  padding: 20px;
+  max-width: 320px;
+  background-color: #ffffff;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.recipeCard:hover {
+  transform: translateY(-5px);
 }
 
 .recipeTitle {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 0.5rem;
 }
 
 .recipeDescription {
-  font-size: 0.9rem;
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 1rem;
 }
 
 .recipeImage {
   display: block;
   margin: 0 auto;
-  max-width: 100%;  
+  max-width: 100%;
   height: auto;
   margin-top: 1.2rem;
+  border-radius: 8px;
 }
 
-
 .subtitle {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
 .ingredientsList,
 .instructionsList {
   padding-left: 20px;
+  margin-bottom: 1rem;
+  color: #444;
 }
 
 .participateButton {
-  font-size: 0.8rem;
-  padding: 8px 15px;
+  font-size: 0.9rem;
+  padding: 10px 20px;
   background-color: #FFA175;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  display: block; 
-  margin: 10px auto;
+  display: block;
+  margin: 15px auto;
+  transition: background-color 0.3s ease;
+}
+
+.participateButton:hover {
+  background-color: #ff5722;
+}
+
+.nextRecipeText {
+  margin-top: 30px;
+  font-size: 1.2em;
+  color: #555;
+  text-align: center;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .recipeCard {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .recipeTitle {
+    font-size: 1.2rem;
+  }
+
+  .recipeDescription {
+    font-size: 0.9rem;
+  }
+
+  .participateButton {
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .recipesList {
+    gap: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .recipeTitle {
+    font-size: 1.1rem;
+  }
+
+  .nextRecipeText {
+    font-size: 1em;
+  }
 }

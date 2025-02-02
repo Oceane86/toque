@@ -1,0 +1,131 @@
+/* app/culinary/culinary.module.css */
+  
+  .title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .filterContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .filterLabel {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .filterSelect {
+    padding: 8px 12px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .recipeGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .recipeCard {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .recipeCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .recipeImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .recipeContent {
+    padding: 15px;
+  }
+  
+  .recipeTitle {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .recipeSummary {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
+  }
+  
+  .recipeDetails {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .recipeDetails p {
+    margin: 5px 0;
+  }
+  
+  .recipeLink {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .recipeLink:hover {
+    text-decoration: underline;
+  }
+  
+  .loading, .error {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 50px;
+    color: #333;
+  }
+  
+  .error {
+    color: #ff0000;
+  }
+
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .paginationButton {
+    padding: 10px 15px;
+    font-size: 1rem;
+    margin: 0 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+  }
+  
+  .paginationButton:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  .pageNumber {
+    font-size: 1.2rem;
+    color: #333;
+  }

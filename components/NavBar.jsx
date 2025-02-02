@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/Navbar.module.css';
 import Image from 'next/image'; 
+import Link from 'next/link'; 
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,10 +18,10 @@ const Navbar = () => {
   return (
     <nav className={styles.nav}>
       <div className={styles.container}>
-        {/* Logo */}
-        <div className={styles.logo}>
+        {/* Logo cliquable */}
+        <Link href="/" className={styles.logo}>
           <Image src="/images/icone_toque_en_duel.svg" alt="Logo" width={150} height={50} />
-        </div>
+        </Link>
 
         {/* Hamburger Menu */}
         <button onClick={toggleMenu} className={styles.hamburger} aria-label="Toggle menu">

@@ -6,7 +6,7 @@ import Post from '@models/Post';
 export async function GET(req) {
     
     const url = new URL(req.url, `http://${req.headers.host}`);
-    const id = url.pathname.split('/')[3]; // Assurez-vous que l'index correspond à la position de l'ID dans l'URL.
+    const id = url.pathname.split('/')[3];
 
     await connectToDB();
 

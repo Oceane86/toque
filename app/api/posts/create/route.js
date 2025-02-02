@@ -78,6 +78,7 @@ export async function POST(req) {
     });
 
     await newPost.save();
+    console.log("Nouveau post créé :", newPost);
     return NextResponse.json({ message: "Post créé avec succès." }, { status: 201 });
   } catch (error) {
     console.error("Erreur lors de la création du post:", error);

@@ -61,7 +61,7 @@ const ChallengePage = ({ params }) => {
     
                 setIsParticipating(true);
                 setMessage("Vous participez maintenant à ce défi.");
-                setShowPopup(true); // Affiche la popup après avoir rejoint le défi
+                setShowPopup(true); 
             } catch (error) {
                 console.error("Erreur:", error);
                 setMessage("Erreur lors de la participation au défi.");
@@ -99,7 +99,7 @@ const ChallengePage = ({ params }) => {
 
                 <div className={styles.footer}>
                     <p><strong>Créé par:</strong> {challenge.createdBy}</p>
-                    <p><strong>Fin du challenge:</strong> {new Date(challenge.endDate).toLocaleDateString()}</p>
+                    <p><strong>Fin du challenge:</strong> {new Date(challenge.endDate).toLocaleString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 </div>
 
                 {message && <p className={styles.message}>{message}</p>}
@@ -107,12 +107,13 @@ const ChallengePage = ({ params }) => {
                 {showPopup && (
                     <div className={styles.popup}>
                         <div className={styles.popupContent}>
+                        <img src="/assets/icon-success.svg" alt="Icon success" />
                             <h2>Félicitations!</h2>
                             <p>N'hésitez pas à partager votre plat avec les autres participants.</p>
                             <Link href={`/challenges/${id}/partage`}>
                                 <button>Partager votre plat</button>
                             </Link>
-                            <button onClick={closePopup}>Fermer</button>
+                            <button onClick={closePopup} className={styles.closeButton}>Fermer</button>
                         </div>
                     </div>
                 )}
