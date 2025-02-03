@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import Navbar from '@components/NavBar';
 import styles from './culinary.module.css'; 
 import Footer from '@components/Footer';
+import Loader from '@components/Loader';
 import '../../styles/globals.css';
-
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState([]);
@@ -14,6 +14,7 @@ export default function Recipes() {
   const [selectedContinent, setSelectedContinent] = useState('Tous');
   const [currentPage, setCurrentPage] = useState(1); 
   const [recipesPerPage] = useState(6);  
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -28,6 +29,8 @@ export default function Recipes() {
         }
       } catch (error) {
         setError('Erreur de réseau');
+      } finally {
+        setLoading(false); 
       }
     };
 
@@ -49,7 +52,6 @@ export default function Recipes() {
 
   const totalPages = Math.ceil(filteredRecipes.length / recipesPerPage);
 
-
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -66,8 +68,8 @@ export default function Recipes() {
     return <div className={styles.error}>{`Erreur: ${error}`}</div>;
   }
 
-  if (recipes.length === 0) {
-    return <div className={styles.loading}>Chargement...</div>;
+  if (loading) {
+    return <Loader />; 
   }
 
   return (

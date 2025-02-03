@@ -14,32 +14,26 @@ cloudinary.v2.config({
 
 export async function POST(req) {
   try {
-    // Connect to the database
     await connectToDB();
 
-    // Get the user's session
     const session = await getServerSession(req);
     if (!session || !session.user) {
       return NextResponse.json({ message: "Utilisateur non authentifié." }, { status: 401 });
     }
 
-    // Verify if the user exists in the database
     const user = await User.findOne({ email: session.user.email });
     if (!user) {
       return NextResponse.json({ message: "Utilisateur non trouvé." }, { status: 404 });
     }
 
-    // Retrieve form data
     const data = await req.formData();
     const { title, content, challengeId } = Object.fromEntries(data.entries());
     const photo = data.get('photo');
 
-    // Validate required fields
     if (!title || !content || !challengeId) {
       return NextResponse.json({ message: "Tous les champs requis doivent être remplis." }, { status: 400 });
     }
 
-    // Handle the photo upload
     let photoUrl = "/assets/No_Image_Available.jpg";
     if (photo && typeof photo.size === "number" && photo.size > 0) {
       try {
@@ -52,7 +46,6 @@ export async function POST(req) {
 
         console.log('Photo Buffer Length:', buffer.length);
 
-        // Upload the photo using Cloudinary
         const uploadResult = await cloudinary.v2.uploader.upload(`data:image/jpeg;base64,${buffer.toString('base64')}`, {
           folder: "post_photos"
         });
@@ -68,7 +61,6 @@ export async function POST(req) {
       }
     }
 
-    // Create a new post
     const newPost = new Post({
       title,
       content,

@@ -3,7 +3,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { connectToDB } from "@/mongodb/database";
 import Challenge from "@/models/Challenge";
-import User from "@/models/User";
 
 const weeklyPrompts = [
 // Semaine 1 : Recettes du monde entier, adaptées à divers régimes
@@ -30,27 +29,23 @@ function getWeeklyPrompt() {
 }
 
 function cleanMarkdownFormatting(text) {
-  // Exemple de nettoyage : supprimer les balises Markdown
   return text.replace(/[*_~`]/g, '');
 }
 
 // Définition de la fonction pour extraire les ingrédients
 function extractIngredients(text) {
-  // Exemple simple : extraire les lignes contenant "Ingrédients"
   const lines = text.split('\n');
   return lines.filter(line => line.toLowerCase().includes('ingrédient'));
 }
 
 // Définition de la fonction pour extraire les instructions
 function extractInstructions(text) {
-  // Exemple simple : extraire les lignes contenant "Instructions"
   const lines = text.split('\n');
   const instructions = lines.filter(line => line.toLowerCase().includes('instruction'));
-  return instructions.join('\n'); // Joindre les instructions en une seule chaîne
+  return instructions.join('\n'); 
 }
 // Définition de la fonction pour extraire le temps de préparation
 function extractPreparationTime(text) {
-  // Exemple simple : rechercher des motifs de temps comme "minutes"
   const match = text.match(/\d+\s*minutes/);
   return match ? match[0] : 'Temps non spécifié';
 }

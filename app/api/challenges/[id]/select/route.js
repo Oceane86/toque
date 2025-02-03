@@ -1,13 +1,12 @@
 // app/api/challenges/[id]/select/route.js
+
 import { connectToDB } from "@/mongodb/database";
 import { NextResponse } from "next/server";
 
-// Récupérer les photos d'un challenge spécifique
 export async function GET(req, { params }) {
     try {
-        const { challengeId } = params; // Récupérer l'ID du challenge depuis les paramètres de l'URL
+        const { challengeId } = params;
 
-        // Connecter à la base de données
         const connection = await connectToDB();
         if (!connection) {
             console.error('Échec de la connexion à la base de données.');
@@ -19,13 +18,11 @@ export async function GET(req, { params }) {
 
         const { db, client } = connection;
 
-        // Récupérer les photos associées au challenge
         const photos = await db.collection('challenges')
-            .find({ challengeId: challengeId }) // Recherche avec challengeId comme clé
-            .project({ photoUrl: 1, _id: 0 }) // Ne récupérer que les URL des photos
+            .find({ challengeId: challengeId })
+            .project({ photoUrl: 1, _id: 0 })
             .toArray();
 
-        // Fermer la connexion à la base de données
         await client.close();
 
         if (photos.length === 0) {

@@ -105,6 +105,11 @@
   text-decoration: underline;
 }
 
+
+.input[type="checkbox"] {
+  WIDTH: 10%;
+}
+
 @media (min-width: 768px) {
   .registerContent {
     max-width: 420px; 

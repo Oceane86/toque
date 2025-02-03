@@ -39,7 +39,6 @@ export async function PUT(req) {
     try {
         await connectToDB();
 
-        // Vérifier que l'utilisateur est l'auteur du post
         const post = await db.collection('posts').findOne({ _id: new ObjectId(postId) });
         if (!post) {
             return new Response(JSON.stringify({ error: "Post non trouvé." }), { status: 404 });

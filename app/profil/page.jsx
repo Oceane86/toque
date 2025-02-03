@@ -6,6 +6,7 @@ import styles from './profil.module.css';
 import { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from 'next/navigation';
+import Loader from '@components/Loader';
 
 const ProfilePage = () => {
     const { data: session, status } = useSession();
@@ -46,18 +47,17 @@ const ProfilePage = () => {
     const indexOfFirstChallenge = indexOfLastChallenge - challengesPerPage;
     const currentChallenges = challenges.slice(indexOfFirstChallenge, indexOfLastChallenge);
 
-    // Calculer le nombre total de pages
     const totalPages = Math.ceil(challenges.length / challengesPerPage);
 
     // Gérer la pagination
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     // Si les données sont en cours de chargement
+
     if (status === "loading") {
-        return <div className={styles.loading}>Chargement...</div>;
+        return <Loader/>;
     }
 
-    // Si une erreur survient
     if (error) {
         return <div className={styles.error}>Erreur: {error}</div>;
     }

@@ -1,11 +1,14 @@
 // app/challenges/[id]/page.jsx
+
 "use client";
+
 import Navbar from '@components/NavBar';
 import styles from './page.module.css'; 
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useSession, signIn } from "next-auth/react"; 
+import Loader from '@components/Loader';
 
 const ChallengePage = ({ params }) => {
     const { id } = params;
@@ -33,8 +36,6 @@ const ChallengePage = ({ params }) => {
 
         fetchChallenge();
     }, [id]);
-
-    
 
     const handleParticipation = () => {
         setIsParticipating(false);
@@ -78,7 +79,7 @@ const ChallengePage = ({ params }) => {
     }
 
     if (!challenge) {
-        return <div className={styles.loading}>Chargement...</div>;
+        return <Loader />;
     }
 
     const instructions = Array.isArray(challenge.instructions) ? challenge.instructions : [];

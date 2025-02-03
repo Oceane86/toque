@@ -7,15 +7,16 @@ import Post from "@models/Post";
 
 export async function DELETE(req, { params }) {
     const { postId } = params;
-    console.log('ID du post à supprimer:', postId); // Log pour vérifier l'ID
+
+    if (!ObjectId.isValid(postId)) {
+        return NextResponse.json({ message: "ID invalide." }, { status: 400 });
+    }
 
     try {
-        await connectToDB(); // Connexion à la base de données
+        await connectToDB(); 
 
-        // Suppression du post avec l'ID donné
-        const result = await Post.deleteOne({ _id: new ObjectId(postId) });
+        const result = await Post.deleteOne({ _id: new ObjectId(postId.toString()) });
 
-        // Vérification si un document a été supprimé
         if (result.deletedCount === 0) {
             return NextResponse.json({ message: "Post non trouvé." }, { status: 404 });
         }

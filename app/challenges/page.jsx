@@ -1,4 +1,5 @@
 // app/challenges/page.jsx
+
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -35,10 +36,8 @@ export default function ChallengesPage() {
 
         const data = await response.json();
         if (response.ok) {
-          // Extraction de l'origine et du régime alimentaire
           const origin = extractCountry(data.challenge.description);
           const diet = data.challenge.diet || "Non spécifié"; 
-
           setWeeklyRecipe({ ...data.challenge, origin, diet });
         } else {
           setError(data.error || "Erreur lors de la récupération de la recette.");
@@ -58,7 +57,7 @@ export default function ChallengesPage() {
   };
 
   if (status === "loading") {
-    return <div>Chargement...</div>;
+    return <div className={styles.loader}></div>;
   }
 
   return (
@@ -68,7 +67,9 @@ export default function ChallengesPage() {
       <p className={styles.motivationalText}>
         Découvrez une recette unique qui vous fera voyager à travers les saveurs du monde. Ce challenge culinaire est l'occasion parfaite pour explorer de nouvelles cuisines et partager vos créations avec notre communauté passionnée. Relevez le défi et montrez vos talents culinaires !
       </p>
-      {loading && <p>Chargement de la recette...</p>}
+
+      {loading && <div className={styles.loader}></div>}
+
       {weeklyRecipe && (
         <div className={styles.recipeCard}>
           <h3 className={styles.recipeTitle}>Recette de la semaine :</h3>
@@ -77,7 +78,6 @@ export default function ChallengesPage() {
             {weeklyRecipe.description.split("\n")[0]}
           </p>
 
-          {/* Utilisation d'une image par défaut */}
           <img
             src="/assets/cuisine.png"
             alt={`Image de ${weeklyRecipe.description}`}
@@ -92,9 +92,9 @@ export default function ChallengesPage() {
           </button>
         </div>
       )}
+
       {error && <p className={styles.error}>{error}</p>}
 
-      {/* Nouveau texte pour indiquer la disponibilité de la prochaine recette */}
       <p className={styles.nextRecipeText}>
         Une nouvelle recette sera disponible la semaine prochaine, restez à l'écoute pour plus de délices culinaires !
       </p>

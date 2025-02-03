@@ -17,7 +17,7 @@ const PartagePage = ({ params }) => {
     const [content, setContent] = useState("");
     const [photo, setPhoto] = useState(null);
     const [editPostId, setEditPostId] = useState(null);
-    const [isPopupOpen, setIsPopupOpen] = useState(false); // Nouvel état pour gérer l'ouverture de la popup
+    const [isPopupOpen, setIsPopupOpen] = useState(false); 
     const router = useRouter();
 
     const { data: session } = useSession();
@@ -92,7 +92,7 @@ const PartagePage = ({ params }) => {
             setTitle("");
             setContent("");
             setPhoto(null);
-            setIsPopupOpen(false); // Ferme la popup après l'envoi du formulaire
+            setIsPopupOpen(false);
             alert(
                 editPostId ? "Post mis à jour avec succès!" : "Post créé avec succès!"
             );
@@ -106,7 +106,7 @@ const PartagePage = ({ params }) => {
         setTitle(post.title);
         setContent(post.content);
         setPhoto(null);
-        setIsPopupOpen(true); // Ouvre la popup pour modifier un post
+        setIsPopupOpen(true); 
     };
 
     const handleDelete = async (postId) => {
@@ -159,9 +159,9 @@ const PartagePage = ({ params }) => {
 
                 {posts.length === 0 ? (
                     <div className={styles.emptyState}>
-                        <p>Soyez le premier à poster pour ce défi !</p>
+                        <p>Soyez le premier à montrer votre plat pour ce défi !</p>
                         <img
-                            src="https://via.placeholder.com/150"
+                            src="/assets/icon-partage.svg"
                             alt="Soyez le premier à poster"
                             className={styles.emptyImage}
                         />

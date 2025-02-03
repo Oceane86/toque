@@ -2,7 +2,7 @@
   {
     "title": "Mofongo",
     "summary": "Plat traditionnel de Porto Rico à base de bananes plantains frites et écrasées, souvent servies avec de la viande ou des fruits de mer.",
-    "image": "https://www.example.com/mofongo.jpg",
+    "image": "../images/mofongo.webp",
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Portoricaine"],
@@ -11,7 +11,7 @@
   {
     "title": "Khachapuri",
     "summary": "Pain géorgien farci de fromage fondu, souvent accompagné d'œuf et de beurre, typique de la Géorgie.",
-    "image": "https://www.example.com/khachapuri.jpg",
+    "image": "../images/khachapuri.webp",
     "isVegan": false,
     "isVegetarian": true,
     "cuisines": ["Géorgienne"],
@@ -20,7 +20,7 @@
   {
     "title": "Shakshuka",
     "summary": "Un plat d'Afrique du Nord avec des œufs pochés dans une sauce tomate épicée à base de poivrons et d'épices.",
-    "image": "https://www.example.com/shakshuka.jpg",
+    "image": "../images/Shakshuka.webp",
     "isVegan": true,
     "isVegetarian": true,
     "cuisines": ["Tunisienne"],
@@ -29,7 +29,7 @@
   {
     "title": "Pabellón Criollo",
     "summary": "Plat emblématique du Venezuela composé de riz, de haricots noirs, de viande hachée de bœuf, et de bananes frites.",
-    "image": "https://www.example.com/pabellon-criollo.jpg",
+    "image": "../images/pabellon.webp",
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Vénézuélienne"],
@@ -38,7 +38,7 @@
   {
     "title": "Fufu",
     "summary": "Plat traditionnel de l'Afrique de l'Ouest à base de pâte de manioc ou d'igname, souvent servi avec des soupes ou des sauces épicées.",
-    "image": "https://www.example.com/fufu.jpg",
+    "image": "../images/fufu.webp",
     "isVegan": true,
     "isVegetarian": true,
     "cuisines": ["Ghanéenne"],
@@ -47,7 +47,7 @@
   {
     "title": "Ceviche de Camarón",
     "summary": "Recette typique de l'Équateur, composée de crevettes marinées dans du jus de citron vert, avec des oignons, de la coriandre, et des tomates.",
-    "image": "https://www.example.com/ceviche.jpg",
+    "image": "../images/ceviche.webp",
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Équatorienne"],
@@ -56,7 +56,7 @@
   {
     "title": "Bacalhau à Brás",
     "summary": "Un plat portugais à base de morue effilochée, de pommes de terre frites, d'œufs et d'olives.",
-    "image": "https://www.example.com/bacalhau.jpg",
+    "image": "../images/bacalhau.webp",
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Portugaise"],
@@ -65,7 +65,7 @@
   {
     "title": "Sauerbraten",
     "summary": "Plat traditionnel d'Allemagne à base de viande marinée (souvent du bœuf) cuite lentement dans une sauce épicée, servi avec des pommes de terre ou des légumes.",
-    "image": "https://www.example.com/sauerbraten.jpg",
+    "image": "../images/sauerbraten.webp",
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Allemande"],
@@ -74,7 +74,7 @@
   {
     "title": "Doro Wat",
     "summary": "Un ragoût épicé traditionnel d'Éthiopie à base de poulet et d'œufs durs, cuit avec des épices, du beurre clarifié, et servi avec de l'injera.",
-    "image": "https://www.example.com/doro-wat.jpg",
+    "image": "../images/doro-wat.webp",
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Éthiopienne"],
@@ -83,7 +83,7 @@
   {
     "title": "Curry Laksa",
     "summary": "Soupe de nouilles malaisienne à base de lait de coco, de curry, et de fruits de mer ou de poulet, souvent accompagnée de tofu et d'œufs durs.",
-    "image": "https://www.example.com/curry-laksa.jpg",
+    "image": "../images/curry-laksa.webp",
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Malaisienne"],
@@ -92,7 +92,7 @@
   {
     "title": "Bobotie",
     "summary": "Un plat sud-africain à base de viande hachée épicée, recouverte d'un mélange d'œufs et de lait, cuit au four et souvent servi avec du riz jaune.",
-    "image": "https://www.example.com/bobotie.jpg",
+    "image": "../images/bobotie.webp",
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Sud-africaine"],
@@ -101,7 +101,7 @@
   {
     "title": "Okonomiyaki",
     "summary": "Crêpe salée japonaise à base de chou et de divers ingrédients, souvent garnie de sauce okonomiyaki, de mayonnaise et de flocons de bonite.",
-    "image": "https://www.example.com/okonomiyaki.jpg",
+    "image": "../images/okonomiyaki.webp",
     "isVegan": false,
     "isVegetarian": true,
     "cuisines": ["Japonaise"],
@@ -110,7 +110,7 @@
   {
     "title": "Feijoada",
     "summary": "Ragoût brésilien emblématique à base de haricots noirs, de porc ou de bœuf, souvent servi avec du riz et des tranches d'orange.",
-    "image": "https://www.example.com/feijoada.jpg",
+    "image": "../images/feijoada.webp",
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Brésilienne"],
@@ -119,7 +119,7 @@
   {
     "title": "Borscht",
     "summary": "Soupe à base de betteraves originaire d'Europe de l'Est, souvent servie chaude ou froide avec de la crème aigre.",
-    "image": "https://www.example.com/borscht.jpg",
+    "image": "../images/borscht.webp",
     "isVegan": true,
     "isVegetarian": true,
     "cuisines": ["Ukrainienne", "Russe"],
@@ -128,7 +128,7 @@
   {
     "title": "Koshari",
     "summary": "Plat égyptien composé de riz, de lentilles, de pâtes, de pois chiches, et garni d'une sauce tomate épicée et d'oignons frits.",
-    "image": "https://www.example.com/koshari.jpg",
+    "image": "../images/koshari.webp",
     "isVegan": true,
     "isVegetarian": true,
     "cuisines": ["Égyptienne"],
@@ -137,7 +137,7 @@
   {
     "title": "Pavlova",
     "summary": "Dessert emblématique d'Australie et de Nouvelle-Zélande, composé d'une meringue croustillante à l'extérieur et moelleuse à l'intérieur, garnie de crème fouettée et de fruits frais.",
-    "image": "https://www.example.com/pavlova.jpg",
+    "image": "../images/pavlova.webp",
     "isVegan": false,
     "isVegetarian": true,
     "cuisines": ["Australienne", "Néo-zélandaise"],
@@ -146,7 +146,7 @@
   {
     "title": "Hangi",
     "summary": "Plat traditionnel maori de Nouvelle-Zélande, consistant en une cuisson lente de viande, pommes de terre et légumes sous terre à l’aide de pierres chaudes.",
-    "image": "https://www.example.com/hangi.jpg",
+    "image": "../images/hangi.webp",
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Néo-zélandaise", "Maorie"],
@@ -155,7 +155,7 @@
   {
     "title": "Damper",
     "summary": "Pain australien traditionnel autrefois préparé par les pionniers, cuit au feu de bois ou dans les braises d’un feu de camp.",
-    "image": "https://www.example.com/damper.jpg",
+    "image": "../images/damper.webp",
     "isVegan": true,
     "isVegetarian": true,
     "cuisines": ["Australienne"],
@@ -164,7 +164,7 @@
   {
     "title": "Kokoda",
     "summary": "Plat fidjien de poisson cru mariné dans du lait de coco et du citron vert, accompagné de légumes croquants et d’épices.",
-    "image": "https://www.example.com/kokoda.jpg",
+    "image": "../images/kokoda.webp",
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Fidjienne"],
@@ -173,7 +173,7 @@
   {
     "title": "Laplap",
     "summary": "Plat national du Vanuatu, fait de racines de taro râpées et de banane plantain, enveloppées dans des feuilles de bananier et cuites à la vapeur ou au four traditionnel.",
-    "image": "https://www.example.com/laplap.jpg",
+    "image": "../images/laplap.webp",
     "isVegan": true,
     "isVegetarian": true,
     "cuisines": ["Vanuatuan"],

@@ -134,7 +134,7 @@
 .logoContainer {
     display: flex;
     align-items: center;
-    width: 50%; 
+    width: 50%;
     padding: 20px 0;
     position: relative;
 }
@@ -143,11 +143,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 
-/* Close Button Styles */
 .closeButton {
     position: absolute;
     top: 1rem;
@@ -167,14 +166,31 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Responsive styles */
+
+
+.logoutButton {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.logoutButton:hover {
+    background-color: #cc0000;
+}
+
+
 @media (max-width: 768px) {
     .desktopMenu {
-        display: none; 
+        display: none;
     }
 
     .hamburger {
-        display: block; 
+        display: block;
     }
 
     .logoMobile {
@@ -183,6 +199,7 @@
         align-items: left;
         margin-bottom: 20px;
     }
+
 
     .mobileMenu.open .closeMenuButton {
         display: block;

@@ -12,7 +12,7 @@ const CreatePostPage = ({ params }) => {
     const { id } = params;
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
-    const [file, setFile] = useState(null); // État pour le fichier
+    const [file, setFile] = useState(null); 
     const [error, setError] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();

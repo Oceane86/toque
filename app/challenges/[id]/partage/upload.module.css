@@ -1,6 +1,5 @@
 /* app/challenges/[id]/partage/upload.module.css */
 
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -20,13 +19,12 @@
 
 .emptyState {
   text-align: center;
-  margin-top: 50px;
   color: #777;
 }
 
 .emptyImage {
-  width: 150px;
-  height: 150px;
+  width: 25px;
+  height: 25px;
   margin-top: 20px;
   opacity: 0.7;
 }
@@ -51,10 +49,13 @@
 }
 
 .photo {
-  width: 100%;
+  width: 50%;
   height: auto;
   border-radius: 8px;
   margin-bottom: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .h3 {
@@ -107,7 +108,12 @@
   font-size: 1rem;
   transition: background-color 0.3s ease;
   margin-top: 20px;
+  margin-left: auto;  
+  margin-right: auto; 
+  display: block;    
+  width: 200px;      
 }
+
 
 .createPostButton:hover {
   background-color: #c17958;
@@ -115,7 +121,7 @@
 
 .popup {
   position: fixed;
-  top: 0;
+  top: 11%; 
   left: 0;
   right: 0;
   bottom: 0;
@@ -184,8 +190,8 @@
   right: 10px;
   background-color: transparent;
   border: none;
-  font-size: 1.5rem;
-  color: #888;
+  font-size: 1rem;
+  color: #cb6638;
   cursor: pointer;
 }
 
@@ -205,4 +211,11 @@
   margin-top: 15px;
   font-size: 1rem;
   text-align: center;
+}
+
+
+@media (min-width: 1024px) {
+  .photo {
+    width: 20%;  
+  }
 }

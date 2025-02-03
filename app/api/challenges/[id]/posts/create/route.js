@@ -4,7 +4,7 @@ import { connectToDB } from "@mongodb/database";
 import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@app/api/auth/[...nextauth]/route";
-import User from "@models/User"; // Assurez-vous que le chemin est correct
+import User from "@models/User"; 
 
 export async function POST(req) {
     const urlParts = req.url.split('/');

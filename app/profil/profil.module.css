@@ -1,5 +1,4 @@
 /* app/profil/profil/module.css */
-
 .tabs {
     display: flex;
     justify-content: flex-start;
@@ -20,11 +19,11 @@
 }
 
 .tabs button:hover {
-    color: #0070f3;
+    color: #FFA175;
 }
 
 .tabs button.activeTab {
-    color: #0070f3;
+    color: #FFA175;
     font-weight: bold;
 }
 
@@ -34,7 +33,7 @@
     bottom: -2px;
     left: 0;
     height: 2px;
-    background-color: #0070f3;
+    background-color: #FFA175;
     transition: left 0.3s ease, width 0.3s ease;
 }
 
@@ -64,30 +63,14 @@
 }
 
 .pagination button:hover {
-    background-color: #0070f3;
+    background-color: #FFA175;
     color: white;
 }
 
 .pagination button.activePage {
-    background-color: #0070f3;
+    background-color: #FFA175;
     color: white;
     font-weight: bold;
-}
-
-
-@media (max-width: 768px) {
-    .tabs {
-        justify-content: space-around;
-    }
-
-    .tabs button {
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    .tabs::after {
-        display: none;
-    }
 }
 
 .profile, .history {
@@ -124,6 +107,7 @@
     background-color: #cc0000;
 }
 
+/* Challenge List */
 .challengeList {
     list-style-type: none;
     padding: 0;
@@ -155,14 +139,19 @@
     color: #333;
 }
 
+
 @media (max-width: 768px) {
-    .container {
-        padding: 10px;
+    .tabs {
+        justify-content: space-around;
     }
 
     .tabs button {
-        padding: 8px 16px;
+        padding: 10px;
         font-size: 14px;
+    }
+
+    .tabs::after {
+        display: none;
     }
 
     .profile, .history {

@@ -1,8 +1,12 @@
 // app/confidentialite/page.jsx
 
+import Footer from "@components/Footer";
+import Navbar from "@components/NavBar";
+
 const Confidentialite = () => {
     return (
       <main className="confidentialite-container">
+        <Navbar/>
         <header className="confidentialite-header">
           <h1>Règles de confidentialité</h1>
           <p>Découvrez comment nous protégeons vos données personnelles.</p>
@@ -21,7 +25,6 @@ const Confidentialite = () => {
           <ul>
             <li>Informations personnelles : nom, email, adresse.</li>
             <li>Données techniques : adresse IP, type de navigateur.</li>
-            <li>Cookies pour améliorer votre expérience utilisateur.</li>
           </ul>
         </section>
   
@@ -40,10 +43,9 @@ const Confidentialite = () => {
             Contactez-nous pour toute demande.
           </p>
         </section>
-  
-        <footer className="confidentialite-footer">
-          <p>&copy; {new Date().getFullYear()} Toque en Duel. Tous droits réservés.</p>
-        </footer>
+
+        <Footer/>
+
       </main>
     );
   };

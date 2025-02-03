@@ -27,7 +27,6 @@ const Home = () => {
         <p className="hero-description">
           Découvrez une nouvelle façon de simplifier votre quotidien, d'apprendre de nouvelles recettes et de vous lancer des défis passionnants, avec l'aide de l'intelligence artificielle.
         </p>
-        {/* Utilisation du composant Link pour la navigation vers la page culinary */}
         <Link href="/culinary">
           <button className="hero-button">
             En savoir plus
