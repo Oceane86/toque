@@ -141,6 +141,12 @@ export default function Recipes() {
             <h3>{selectedRecipe.title}</h3>
             <p>{selectedRecipe.description}</p>
 
+            {/* Message d'invitation à explorer */}
+            <p>
+              Vous voulez en découvrir plus sur le plat ou la culture ?
+              N'hésitez pas à consulter ces articles et vidéos !
+            </p>
+
             {/* Affichage des articles */}
             <div>
               <h4>Articles :</h4>
@@ -171,8 +177,7 @@ export default function Recipes() {
                     </p>
                   ))}
                 </div>
-              )
-            }
+              )}
 
             <button onClick={closePopup} className={styles.closeButton}>
               Fermer
