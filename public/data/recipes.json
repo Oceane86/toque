@@ -6,7 +6,16 @@
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Portoricaine"],
-    "continent": "Amérique"
+    "continent": "Amérique",
+    "resources": {
+      "articles": [
+        "https://caribbeanpan.com/blog/17825-le-mofongo",
+        "https://www.peko-peko.fr/recettes/mofongo/"
+      ],
+      "videos": [
+        "https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwi40IWkvqaLAxVjSaQEHRZOIBkQwqsBegQIEBAG&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DuJTpZFMMCcU&usg=AOvVaw2LZ3JZxtBisSiJeyjszfGs&opi=89978449"
+      ]
+    }
   },
   {
     "title": "Khachapuri",
@@ -15,7 +24,15 @@
     "isVegan": false,
     "isVegetarian": true,
     "cuisines": ["Géorgienne"],
-    "continent": "Europe"
+    "continent": "Europe",
+    "resources": {
+      "articles": [
+        "https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjYuevBvqaLAxX7AvsDHUQvD98QFnoECBcQAQ&url=https%3A%2F%2Fwww.lemonde.fr%2Fle-monde-passe-a-table%2Farticle%2F2023%2F05%2F07%2Fle-khatchapouri-galette-star-de-la-gastronomie-georgienne_6172382_6082232.html&usg=AOvVaw2wt4CzR-uNHQ9EXGpyEjAm&opi=89978449"
+      ],
+      "videos": [
+        "https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=video&cd=&cad=rja&uact=8&ved=2ahUKEwjx7s_uvqaLAxV-UaQEHU_UJsIQtwJ6BAgKEAI&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DgX4rPo-oiQg&usg=AOvVaw2_SgtDhKHq56kBGVv3cSsH&opi=89978449"
+      ]
+    }
   },
   {
     "title": "Shakshuka",
@@ -24,7 +41,16 @@
     "isVegan": true,
     "isVegetarian": true,
     "cuisines": ["Tunisienne"],
-    "continent": "Afrique"
+    "continent": "Afrique",
+    "resources": {
+      "articles": [
+        "https://www.bbcgoodfood.com/recipes/shakshuka",
+        "https://www.seriouseats.com/shakshuka-north-african-shirred-eggs-tomato-pepper-recipe"
+      ],
+      "videos": [
+        "https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=video&cd=&cad=rja&uact=8&ved=2ahUKEwiiuvCXv6aLAxWAUqQEHQfEHEoQtwJ6BAgUEAI&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DjOtIiX6Hzz4&usg=AOvVaw1WX87FvzRIGlmP2KVOG656&opi=89978449"
+      ]
+    }
   },
   {
     "title": "Pabellón Criollo",
@@ -33,7 +59,15 @@
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Vénézuélienne"],
-    "continent": "Amérique"
+    "continent": "Amérique",
+    "resources": {
+      "articles": [
+        "https://blog.remitly.com/fr/mode-de-vie-et-culture/platsnationaux-pabellon-criollo-fascinants-faits-venezuela/"
+      ],
+      "videos": [
+        "https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=video&cd=&cad=rja&uact=8&ved=2ahUKEwjPsoXOv6aLAxVlV6QEHQcdCBAQtwJ6BAgPEAI&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DOv_vuZl-Bpk&usg=AOvVaw1vmMJf802bNfkEddBVPdV1&opi=89978449"
+      ]
+    }
   },
   {
     "title": "Fufu",
@@ -42,7 +76,15 @@
     "isVegan": true,
     "isVegetarian": true,
     "cuisines": ["Ghanéenne"],
-    "continent": "Afrique"
+    "continent": "Afrique",
+    "resources": {
+      "articles": [
+        "https://www.africanbites.com/fufu-recipe/"
+      ],
+      "videos": [
+        "https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=video&cd=&cad=rja&uact=8&ved=2ahUKEwjk6o2IwKaLAxWgUqQEHYboDo84ChC3AnoECA8QAg&url=https%3A%2F%2Fwww.facebook.com%2FXinhuaChineNouvelle%2Fvideos%2Fc%25C3%25B4te-divoire-%25C3%25A0-la-d%25C3%25A9couverte-dun-aliment-traditionnel-ouest-africain-le-foufou%2F1025617179145274%2F&usg=AOvVaw37xgcVSgRKGOd9d0vMAzqG&opi=89978449"
+      ]
+    }
   },
   {
     "title": "Ceviche de Camarón",
@@ -51,7 +93,15 @@
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Équatorienne"],
-    "continent": "Amérique"
+    "continent": "Amérique",
+    "resources": {
+      "articles": [
+        "https://www.radiofrance.fr/franceinter/recette-ceviche-de-camarones-6410810"
+      ],
+      "videos": [
+        "https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=video&cd=&cad=rja&uact=8&ved=2ahUKEwjji6bdwKaLAxWfVaQEHZglLVsQtwJ6BAgPEAI&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D_-4gXaiWjaw&usg=AOvVaw16QMARNI5xt1QcNgu2hJPQ&opi=89978449"
+      ]
+    }
   },
   {
     "title": "Bacalhau à Brás",
@@ -60,7 +110,15 @@
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Portugaise"],
-    "continent": "Europe"
+    "continent": "Europe",
+    "resources": {
+      "articles": [
+        "https://www.cuisineaz.com/recettes/bacalhau-a-bras-8263.aspx"
+      ],
+      "videos": [
+        "https://www.youtube.com/watch?v=E0gUZY77tmk"
+      ]
+    }
   },
   {
     "title": "Sauerbraten",
@@ -69,7 +127,15 @@
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Allemande"],
-    "continent": "Europe"
+    "continent": "Europe",
+    "resources": {
+      "articles": [
+        "https://www.cuisineaz.com/recettes/sauerbraten-102138.aspx"
+      ],
+      "videos": [
+        "https://www.youtube.com/watch?v=T_O4GjyrF54"
+      ]
+    }
   },
   {
     "title": "Doro Wat",
@@ -78,7 +144,15 @@
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Éthiopienne"],
-    "continent": "Afrique"
+    "continent": "Afrique",
+    "resources": {
+      "articles": [
+        "https://www.peko-peko.fr/recettes/doro-wat/"
+      ],
+      "videos": [
+        "https://www.youtube.com/watch?v=rGWp2a4Gwaw"
+      ]
+    }
   },
   {
     "title": "Curry Laksa",
@@ -87,7 +161,15 @@
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Malaisienne"],
-    "continent": "Asie"
+    "continent": "Asie",
+    "resources": {
+      "articles": [
+        "https://www.elogedumonde.fr/decouvrez-la-recette-traditionnelle-du-laksa-de-singapour/"
+      ],
+      "videos": [
+        "https://www.youtube.com/watch?v=Q-2nUBMwNVc"
+      ]
+    }
   },
   {
     "title": "Bobotie",
@@ -96,7 +178,15 @@
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Sud-africaine"],
-    "continent": "Afrique"
+    "continent": "Afrique",
+    "resources": {
+      "articles": [
+        "https://www.marmiton.org/recettes/recette_bobotie-original-de-mme-joubert-afrique-du-sud_33191.aspx"
+      ],
+      "videos": [
+        "https://www.youtube.com/watch?v=gzRbcyoJBMw"
+      ]
+    }
   },
   {
     "title": "Okonomiyaki",
@@ -105,7 +195,15 @@
     "isVegan": false,
     "isVegetarian": true,
     "cuisines": ["Japonaise"],
-    "continent": "Asie"
+    "continent": "Asie",
+    "resources": {
+      "articles": [
+        "https://www.commeaujapon.fr/okonomiyaki/"
+      ],
+      "videos": [
+        "https://www.youtube.com/watch?v=0zFMUrhch0Q"
+      ]
+    }
   },
   {
     "title": "Feijoada",
@@ -114,7 +212,15 @@
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Brésilienne"],
-    "continent": "Amérique"
+    "continent": "Amérique",
+    "resources": {
+      "articles": [
+        "https://www.marmiton.org/recettes/recette_feijoada-cassoulet-portugais_21458.aspx"
+      ],
+      "videos": [
+        "https://www.youtube.com/watch?v=IJQ6v44RLIM"
+      ]
+    }
   },
   {
     "title": "Borscht",
@@ -123,7 +229,15 @@
     "isVegan": true,
     "isVegetarian": true,
     "cuisines": ["Ukrainienne", "Russe"],
-    "continent": "Europe"
+    "continent": "Europe",
+    "resources": {
+      "articles": [
+        "https://www.cuisineaz.com/recettes/borscht-petite-russie-40185.aspx"
+      ],
+      "videos": [
+        "https://www.youtube.com/watch?v=4z1T7KPypHA"
+      ]
+    }
   },
   {
     "title": "Koshari",
@@ -132,7 +246,15 @@
     "isVegan": true,
     "isVegetarian": true,
     "cuisines": ["Égyptienne"],
-    "continent": "Afrique"
+    "continent": "Afrique",
+    "resources": {
+      "articles": [
+        "https://www.cuisineaz.com/recettes/koshari-102639.aspx"
+      ],
+      "videos": [
+        "https://www.youtube.com/watch?v=KgpLUX8LP1w"
+      ]
+    }
   },
   {
     "title": "Pavlova",
@@ -141,7 +263,15 @@
     "isVegan": false,
     "isVegetarian": true,
     "cuisines": ["Australienne", "Néo-zélandaise"],
-    "continent": "Océanie"
+    "continent": "Océanie",
+    "resources": {
+      "articles": [
+        "https://empreintesucree.fr/pavlova-aux-fruits-rouges/"
+      ],
+      "videos": [
+        "https://www.youtube.com/watch?v=3YckZrPoNDo"
+      ]
+    }
   },
   {
     "title": "Hangi",
@@ -150,7 +280,15 @@
     "isVegan": false,
     "isVegetarian": false,
     "cuisines": ["Néo-zélandaise", "Maorie"],
-    "continent": "Océanie"
+    "continent": "Océanie",
+    "resources": {
+      "articles": [
+        "https://www.nouvellezelandeservices.com/blog-nzs/recette-maori"
+      ],
+      "videos": [
+        "https://www.youtube.com/watch?v=4unG3j22TRc"
+      ]
+    }
   },
   {
     "title": "Damper",
@@ -159,16 +297,15 @@
     "isVegan": true,
     "isVegetarian": true,
     "cuisines": ["Australienne"],
-    "continent": "Océanie"
-  },
-  {
-    "title": "Kokoda",
-    "summary": "Plat fidjien de poisson cru mariné dans du lait de coco et du citron vert, accompagné de légumes croquants et d’épices.",
-    "image": "../images/kokoda.webp",
-    "isVegan": false,
-    "isVegetarian": false,
-    "cuisines": ["Fidjienne"],
-    "continent": "Océanie"
+    "continent": "Océanie",
+    "resources": {
+      "articles": [
+        "https://www.altergusto.fr/2015/09/15/damper-bread-pain-australien-rapide/"
+      ],
+      "videos": [
+        "https://www.youtube.com/watch?v=BjbzjlTpK-w"
+      ]
+    }
   },
   {
     "title": "Laplap",
@@ -177,7 +314,15 @@
     "isVegan": true,
     "isVegetarian": true,
     "cuisines": ["Vanuatuan"],
-    "continent": "Océanie"
+    "continent": "Océanie",
+    "resources": {
+      "articles": [
+        "https://www.recettes.nc/recette/laplap-le-plat-national-du-vanuatu/"
+      ],
+      "videos": [
+        "https://www.youtube.com/watch?v=qgEAehSOW4s"
+      ]
+    }
   }
 ]
 
